@@ -78,8 +78,16 @@ const ProfileForm = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
+<<<<<<< HEAD
+    const editing = profile ? true : false;
+    e.preventDefault();
+    createProfile(formData, editing).then(() => {
+      if (!editing) navigate('/dashboard');
+    });
+=======
     e.preventDefault();
     createProfile(formData, navigate, profile ? true : false);
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
   };
 
   return (
@@ -273,4 +281,8 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
   ProfileForm
+<<<<<<< HEAD
 );
+=======
+);
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb

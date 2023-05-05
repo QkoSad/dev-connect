@@ -26,4 +26,8 @@ ProfileExperience.propTypes = {
   experience: PropTypes.object.isRequired
 };
 
+<<<<<<< HEAD
 export default ProfileExperience;
+=======
+export default ProfileExperience;
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb

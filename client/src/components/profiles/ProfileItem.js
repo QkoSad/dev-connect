@@ -39,4 +39,8 @@ ProfileItem.propTypes = {
   profile: PropTypes.object.isRequired
 };
 
+<<<<<<< HEAD
 export default ProfileItem;
+=======
+export default ProfileItem;
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb

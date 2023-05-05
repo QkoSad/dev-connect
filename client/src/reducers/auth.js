@@ -50,4 +50,8 @@ function authReducer(state = initialState, action) {
   }
 }
 
+<<<<<<< HEAD
 export default authReducer;
+=======
+export default authReducer;
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb

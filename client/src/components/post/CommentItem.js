@@ -45,4 +45,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
+<<<<<<< HEAD
 export default connect(mapStateToProps, { deleteComment })(CommentItem);
+=======
+export default connect(mapStateToProps, { deleteComment })(CommentItem);
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb

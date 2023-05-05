@@ -15,4 +15,8 @@ function alertReducer(state = initialState, action) {
   }
 }
 
+<<<<<<< HEAD
 export default alertReducer;
+=======
+export default alertReducer;
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb

@@ -76,11 +76,19 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
     </section>
   );
 };
+<<<<<<< HEAD
+
+=======
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
 Profile.propTypes = {
   getProfileById: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
+<<<<<<< HEAD
+
+=======
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
 const mapStateToProps = (state) => ({
   profile: state.profile,
   auth: state.auth
