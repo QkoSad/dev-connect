@@ -41,4 +41,8 @@ PostForm.propTypes = {
 export default connect(
   null,
   { addPost }
+<<<<<<< HEAD
 )(PostForm);
+=======
+)(PostForm);
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb

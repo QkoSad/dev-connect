@@ -48,4 +48,8 @@ const mapStateToProps = state => ({
   repos: state.profile.repos
 });
 
+<<<<<<< HEAD
 export default connect(mapStateToProps, { getGithubRepos })(ProfileGithub);
+=======
+export default connect(mapStateToProps, { getGithubRepos })(ProfileGithub);
+>>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
