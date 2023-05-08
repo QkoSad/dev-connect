@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
 import { Link, Navigate } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
-=======
-import PropTypes from 'prop-types';
-import { Link, Navigate } from 'react-router-dom';
-import { setAlert } from '../../actions/alert';
-import { register } from '../../actions/auth';
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
