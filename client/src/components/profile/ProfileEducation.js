@@ -26,8 +26,5 @@ ProfileEducation.propTypes = {
   education: PropTypes.object.isRequired
 };
 
-<<<<<<< HEAD
+
 export default ProfileEducation;
-=======
-export default ProfileEducation;
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
