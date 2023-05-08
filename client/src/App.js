@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
@@ -25,34 +24,6 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
-=======
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/layout/Navbar";
-import Landing from "./components/layout/Landing";
-import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
-import Alert from "./components/layout/Alert";
-import Dashboard from "./components/dashboard/Dashboard";
-import ProfileForm from "./components/profile-forms/ProfileForm";
-import AddExperience from "./components/profile-forms/AddExperience";
-import AddEducation from "./components/profile-forms/AddEducation";
-import Profiles from "./components/profiles/Profiles";
-import Profile from "./components/profile/Profile";
-import Posts from "./components/posts/Posts";
-import Post from "./components/post/Post";
-import NotFound from "./components/layout/NotFound";
-import PrivateRoute from "./components/routing/PrivateRoute";
-import { LOGOUT } from "./actions/types";
-
-// Redux
-import { Provider } from "react-redux";
-import store from "./store";
-import { loadUser } from "./actions/auth";
-import setAuthToken from "./utils/setAuthToken";
-
-import "./App.css";
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
 
 const App = () => {
   useEffect(() => {
@@ -66,11 +37,7 @@ const App = () => {
     store.dispatch(loadUser());
 
     // log user out from all tabs if they log out in one tab
-<<<<<<< HEAD
-    window.addEventListener('storage', () => {
-=======
     window.addEventListener("storage", () => {
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
       if (!localStorage.token) store.dispatch({ type: LOGOUT });
     });
   }, []);
@@ -85,11 +52,7 @@ const App = () => {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="profiles" element={<Profiles />} />
-<<<<<<< HEAD
           <Route path="profile/:id" element={<Profile />} />
-=======
-          <Route path="porifles/:id" element={<Profile />} />
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
           <Route
             path="dashboard"
             element={<PrivateRoute component={Dashboard} />}
