@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -50,8 +46,4 @@ Experience.propTypes = {
   deleteExperience: PropTypes.func.isRequired
 };
 
-<<<<<<< HEAD
 export default connect(null, { deleteExperience })(Experience);
-=======
-export default connect(null, { deleteExperience })(Experience);
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
