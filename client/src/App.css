@@ -333,11 +333,7 @@ button {
 /* Landing Page */
 .landing {
   position: relative;
-<<<<<<< HEAD
-  background: url('./img/showcase.jpg') no-repeat center center/cover;
-=======
   background: url('./img/vimCheatSheet.jpg') no-repeat center center/cover;
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
   height: 100vh;
 }
 
@@ -585,8 +581,5 @@ button {
   top: 4rem;
   right: 2rem;
   display: inline-block;
-<<<<<<< HEAD
-}
-=======
 }
 >>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
