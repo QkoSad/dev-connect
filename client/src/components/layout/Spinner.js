@@ -11,8 +11,4 @@ const Spinner = () => (
   </Fragment>
 );
 
-<<<<<<< HEAD
 export default Spinner;
-=======
-export default Spinner;
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
