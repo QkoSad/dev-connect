@@ -34,11 +34,7 @@ const AddEducation = ({ addEducation }) => {
         className="form"
         onSubmit={(e) => {
           e.preventDefault();
-<<<<<<< HEAD
           addEducation(formData).then(() => navigate('/dashboard'));
-=======
-          addEducation(formData, navigate);
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
         }}
       >
         <div className="form-group">
@@ -119,8 +115,4 @@ AddEducation.propTypes = {
   addEducation: PropTypes.func.isRequired
 };
 
-<<<<<<< HEAD
 export default connect(null, { addEducation })(AddEducation);
-=======
-export default connect(null, { addEducation })(AddEducation);
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
