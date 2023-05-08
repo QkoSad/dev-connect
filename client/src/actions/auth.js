@@ -63,10 +63,6 @@ export const login = (email, password) => async (dispatch) => {
   try {
     const res = await api.post("/auth", body);
 
-<<<<<<< HEAD
-    console.log(res)
-=======
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
