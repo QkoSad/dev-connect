@@ -33,11 +33,7 @@ const AddExperience = ({ addExperience }) => {
         className="form"
         onSubmit={(e) => {
           e.preventDefault();
-<<<<<<< HEAD
           addExperience(formData).then(() => navigate('/dashboard'));
-=======
-          addExperience(formData, navigate);
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
         }}
       >
         <div className="form-group">
@@ -120,8 +116,4 @@ AddExperience.propTypes = {
   addExperience: PropTypes.func.isRequired
 };
 
-<<<<<<< HEAD
 export default connect(null, { addExperience })(AddExperience);
-=======
-export default connect(null, { addExperience })(AddExperience);
->>>>>>> cc38df43629d64ca77f694c971a13a026b3afcfb
