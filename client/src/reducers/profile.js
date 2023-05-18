@@ -13,8 +13,7 @@ const initialState = {
   profiles: [],
   repos: [],
   loading: true,
-  error: {},
-
+  error: {}
 };
 
 function profileReducer(state = initialState, action) {
@@ -26,13 +25,13 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         profile: payload,
-        loading: false,
+        loading: false
       };
     case GET_PROFILES:
       return {
         ...state,
         profiles: payload,
-        loading: false,
+        loading: false
       };
     case PROFILE_ERROR:
       return {
@@ -40,7 +39,6 @@ function profileReducer(state = initialState, action) {
         error: payload,
         loading: false,
         profile: null
-        profile: null,
       };
     case CLEAR_PROFILE:
       return {
@@ -52,12 +50,12 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         repos: payload,
-        loading: false,
+        loading: false
       };
     case NO_REPOS:
       return {
         ...state,
-        repos: [],
+        repos: []
       };
     default:
       return state;

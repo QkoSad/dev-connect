@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
@@ -25,6 +26,9 @@ import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
 
+// Level - 1
+//
+
 const App = () => {
   useEffect(() => {
     // check for token in LS when app first runs
@@ -43,7 +47,8 @@ const App = () => {
   }, []);
 
   return (
-    <Provider store={store}>
+    <Provider store={store}> 
+    // Seting Up redux store 
       <Router>
         <Navbar />
         <Alert />
