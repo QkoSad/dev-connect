@@ -1,15 +1,20 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
-import ProfileItem from './ProfileItem';
-import { getProfiles } from '../../actions/profile';
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../layout/Spinner";
+import ProfileItem from "./ProfileItem";
+import { getProfiles } from "../../actions/profile";
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = () => {
+  const dispatch = useDispatch();
+  
   useEffect(() => {
-    getProfiles();
-  }, [getProfiles]);
-
+    async function fetchData() {
+      await dispatch(getProfiles());
+    }
+    fetchData();
+  }, [dispatch]);
+  
+  const { profiles, loading } = useSelector((state) => state.profile);
   return (
     <section className="container">
       {loading ? (
@@ -36,13 +41,4 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
   );
 };
 
-Profiles.propTypes = {
-  getProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  profile: state.profile
-});
-
-export default connect(mapStateToProps, { getProfiles })(Profiles);
+export default Profiles;

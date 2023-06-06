@@ -1,15 +1,12 @@
 import api from "../utils/api";
-import { setAlert } from "./alert";
+import { createAlert } from "./alert";
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
-} from "./types";
-
+  loginSucces,
+  authError,
+  registerSuccess,
+  logOut,
+  userLoaded,
+} from "../reducers/auth";
 /*
   NOTE: we don't need a config object for axios as the
  default headers in axios are already Content-Type: application/json
@@ -17,19 +14,32 @@ import {
  JSON.stringify or JSON.parse
 */
 
-// Load User
+export const login = (email, password) => async (dispatch) => {
+  const body = { email, password };
+  try {
+    const res = await api.post("/auth", body);
+
+    dispatch(loginSucces(res.data));
+
+    dispatch(loadUser());
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(createAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: "auth/loginFail",
+    });
+  }
+};
 
 export const loadUser = () => async (dispatch) => {
   try {
     const res = await api.get("/auth");
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data,
-    });
+
+    dispatch(userLoaded(res.data));
   } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
+    dispatch(authError());
   }
 };
 
@@ -38,49 +48,21 @@ export const register = (formData) => async (dispatch) => {
   try {
     const res = await api.post("/users", formData);
 
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: res.data,
-    });
+    dispatch(registerSuccess(res.data));
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(createAlert(error.msg, "danger")));
     }
 
     dispatch({
-      type: REGISTER_FAIL,
+      type: "auth/registerFail",
     });
   }
 };
 
-// Login User
-export const login = (email, password) => async (dispatch) => {
-  const body = { email, password };
-
-  try {
-    const res = await api.post("/auth", body);
-
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: res.data,
-    });
-
-    dispatch(loadUser());
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-    }
-
-    dispatch({
-      type: LOGIN_FAIL,
-    });
-  }
+export const logout = () => async (dispatch) => {
+  dispatch(logOut);
 };
-
-// Logout
-export const logout = () => ({ type: LOGOUT });

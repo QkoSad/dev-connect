@@ -1,84 +1,92 @@
-import {
-  GET_POSTS,
-  POST_ERROR,
-  UPDATE_LIKES,
-  DELETE_POST,
-  ADD_POST,
-  GET_POST,
-  ADD_COMMENT,
-  REMOVE_COMMENT
-} from '../actions/types';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   posts: [],
   post: null,
   loading: true,
-  error: {}
+  error: {},
 };
 
-function postReducer(state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
-    case GET_POSTS:
+const postSlice = createSlice({
+  name: "post",
+  initialState,
+  reducers: {
+    getPostsAction(state, action) {
       return {
         ...state,
-        posts: payload,
-        loading: false
+        posts: action.payload,
+        loading: false,
       };
-    case GET_POST:
+    },
+    getPostAction(state, action) {
       return {
         ...state,
-        post: payload,
-        loading: false
+        post: action.payload,
+        loading: false,
       };
-    case ADD_POST:
+    },
+    addPostAction(state, action) {
       return {
         ...state,
-        posts: [payload, ...state.posts],
-        loading: false
+        posts: [action.payload, ...state.posts],
+        loading: false,
       };
-    case DELETE_POST:
+    },
+    deletePostAction(state, action) {
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== payload),
-        loading: false
+        posts: state.posts.filter((post) => post._id !== action.payload),
+        loading: false,
       };
-    case POST_ERROR:
+    },
+    postError(state, action) {
       return {
         ...state,
-        error: payload,
-        loading: false
+        error: action.payload,
+        loading: false,
       };
-    case UPDATE_LIKES:
+    },
+    updateLikes(state, action) {
       return {
         ...state,
         posts: state.posts.map((post) =>
-          post._id === payload.id ? { ...post, likes: payload.likes } : post
+          post._id === action.payload.id
+            ? { ...post, likes: action.payload.likes }
+            : post
         ),
-        loading: false
+        loading: false,
       };
-    case ADD_COMMENT:
+    },
+    addCommentAction(state, action) {
       return {
         ...state,
-        post: { ...state.post, comments: payload },
-        loading: false
+        post: { ...state.post, comments: action.payload },
+        loading: false,
       };
-    case REMOVE_COMMENT:
+    },
+    removeComment(state, action) {
       return {
         ...state,
         post: {
           ...state.post,
           comments: state.post.comments.filter(
-            (comment) => comment._id !== payload
-          )
+            (comment) => comment._id !== action.payload
+          ),
         },
-        loading: false
+        loading: false,
       };
-    default:
-      return state;
-  }
-}
+    },
+  },
+});
+export const {
+  removeComment,
+  addCommentAction,
+  updateLikes,
+  postError,
+  deletePostAction,
+  getPostAction,
+  getPostsAction,
+  addPostAction,
+} = postSlice.actions;
 
-export default postReducer;
-
+export default postSlice.reducer;
