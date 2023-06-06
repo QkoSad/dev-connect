@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import formatDate from '../../utils/formatDate';
 
 const ProfileEducation = ({
@@ -22,9 +21,6 @@ const ProfileEducation = ({
   </div>
 );
 
-ProfileEducation.propTypes = {
-  education: PropTypes.object.isRequired
-};
 
 
 export default ProfileEducation;

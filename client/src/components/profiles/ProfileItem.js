@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 const ProfileItem = ({
   profile: {
@@ -33,10 +32,6 @@ const ProfileItem = ({
       </ul>
     </div>
   );
-};
-
-ProfileItem.propTypes = {
-  profile: PropTypes.object.isRequired
 };
 
 export default ProfileItem;
