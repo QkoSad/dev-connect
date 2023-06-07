@@ -1,12 +1,4 @@
-import {
-  GET_PROFILE,
-  PROFILE_ERROR,
-  CLEAR_PROFILE,
-  UPDATE_PROFILE,
-  GET_PROFILES,
-  GET_REPOS,
-  NO_REPOS
-} from '../actions/types';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   profile: null,
@@ -14,54 +6,70 @@ const initialState = {
   repos: [],
   loading: true,
   error: {},
-
 };
-
-function profileReducer(state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
-    case GET_PROFILE:
-    case UPDATE_PROFILE:
+const profileSlice = createSlice({
+  name: "profile",
+  initialState,
+  reducers: {
+    getProfile(state, action) {
       return {
         ...state,
-        profile: payload,
+        profile: action.payload,
         loading: false,
       };
-    case GET_PROFILES:
+    },
+    updateProfile(state, action) {
       return {
         ...state,
-        profiles: payload,
+        profile: action.payload,
         loading: false,
       };
-    case PROFILE_ERROR:
+    },
+    getProfilesType(state, action) {
       return {
         ...state,
-        error: payload,
+        profiles: action.payload,
         loading: false,
-        profile: null
+      };
+    },
+    profileError(state, action) {
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
         profile: null,
       };
-    case CLEAR_PROFILE:
+    },
+    clearProfile(state, action) {
       return {
         ...state,
         profile: null,
-        repos: []
+        repos: [],
       };
-    case GET_REPOS:
+    },
+    getRepos(state, action) {
       return {
         ...state,
-        repos: payload,
+        repos: action.payload,
         loading: false,
       };
-    case NO_REPOS:
+    },
+    noRepos(state, action) {
       return {
         ...state,
         repos: [],
       };
-    default:
-      return state;
-  }
-}
+    },
+  },
+});
+export const {
+  noRepos,
+  getRepos,
+  clearProfile,
+  profileError,
+  getProfilesType,
+  updateProfile,
+  getProfile,
+} = profileSlice.actions;
 
-export default profileReducer;
+export default profileSlice.reducer;

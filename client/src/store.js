@@ -1,28 +1,20 @@
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
-import rootReducer from './reducers';
 import setAuthToken from './utils/setAuthToken';
+import { configureStore } from '@reduxjs/toolkit';
 
-const initialState = {};
+import alertReducer from './reducers/alert';
+import authReducer from './reducers/auth';
+import profileReducer from './reducers/profile'
+import postReducer from './reducers/post'
 
-const middleware = [thunk];
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
+const store = configureStore({
+  reducer: {
+    alert: alertReducer,
+    auth: authReducer,
+    profile: profileReducer,
+    post: postReducer
+}})
 
-/*
-  NOTE: set up a store subscription listener
-  to store the users token in localStorage
- */
-
-/*
-  initialize current state from redux store for subscription comparison
-  preventing undefined error
- */
 let currentState = store.getState();
 
 store.subscribe(() => {

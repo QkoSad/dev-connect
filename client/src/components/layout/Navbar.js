@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../reducers/auth";
 
-const Navbar = ({ auth: { isAuthenticated }, logout }) => {
+const Navbar = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
   const authLinks = (
     <ul>
       <li>
@@ -15,12 +16,11 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
       </li>
       <li>
         <Link to="/dashboard">
-          <i className="fas fa-user" />{' '}
-          <span className="hide-sm">Dashboard</span>
+          <i className="fas fa-user" /> <span className="hide-sm">Profile</span>
         </Link>
       </li>
       <li>
-        <a onClick={logout} href="#!">
+        <a onClick={()=>dispatch(logOut())} href="#!">
           <i className="fas fa-sign-out-alt" />{' '}
           <span className="hide-sm">Logout</span>
         </a>
@@ -45,7 +45,7 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
   return (
     <nav className="navbar bg-dark">
       <h1>
-        <Link to="/">
+        <Link to="/posts">
           <i className="fas fa-code" /> DevConnector
         </Link>
       </h1>
@@ -54,13 +54,4 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
   );
 };
 
-Navbar.propTypes = {
-  logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth
-});
-
-export default connect(mapStateToProps, { logout })(Navbar);
+export default Navbar;

@@ -1,32 +1,32 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { Link, useMatch, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createProfile, getCurrentProfile } from '../../actions/profile';
+import React, { Fragment, useState, useEffect } from "react";
+import { Link, useMatch, useNavigate } from "react-router-dom";
+import { createProfile, getCurrentProfile } from "../../actions/profile";
+import { useDispatch, useSelector } from "react-redux";
 
 const initialState = {
-  company: '',
-  website: '',
-  location: '',
-  status: '',
-  skills: '',
-  githubusername: '',
-  bio: '',
-  twitter: '',
-  facebook: '',
-  linkedin: '',
-  youtube: '',
-  instagram: ''
+  company: "",
+  website: "",
+  location: "",
+  status: "",
+  skills: "",
+  githubusername: "",
+  bio: "",
+  twitter: "",
+  facebook: "",
+  linkedin: "",
+  youtube: "",
+  instagram: "",
 };
 
-const ProfileForm = ({
-  profile: { profile, loading },
-  createProfile,
-  getCurrentProfile
-}) => {
+const ProfileForm = () => {
+
+  const dispatch = useDispatch();
+
+  const { profile, loading } = useSelector((state) => state.profile);
+
   const [formData, setFormData] = useState(initialState);
 
-  const creatingProfile = useMatch('/create-profile');
+  const creatingProfile = useMatch("/create-profile");
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
@@ -34,7 +34,10 @@ const ProfileForm = ({
 
   useEffect(() => {
     // if there is no profile, attempt to fetch one
-    if (!profile) getCurrentProfile();
+    async function fetchData(){
+      await dispatch(getCurrentProfile())
+    }
+    if (!profile) fetchData();
 
     // if we finished loading and we do have a profile
     // then build our profileData
@@ -48,11 +51,11 @@ const ProfileForm = ({
       }
       // the skills may be an array from our API response
       if (Array.isArray(profileData.skills))
-        profileData.skills = profileData.skills.join(', ');
+        profileData.skills = profileData.skills.join(", ");
       // set local state with the profileData
       setFormData(profileData);
     }
-  }, [loading, getCurrentProfile, profile]);
+  }, [loading, dispatch, profile]);
 
   const {
     company,
@@ -66,30 +69,31 @@ const ProfileForm = ({
     facebook,
     linkedin,
     youtube,
-    instagram
+    instagram,
   } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     const editing = profile ? true : false;
     e.preventDefault();
-    createProfile(formData, editing).then(() => {
-      if (!editing) navigate('/dashboard');
+    await dispatch(createProfile(formData, editing)).then(() => {
+      console.log(editing)
+      if (!editing) navigate("/dashboard");
     });
   };
 
   return (
     <section className="container">
       <h1 className="large text-primary">
-        {creatingProfile ? 'Create Your Profile' : 'Edit Your Profile'}
+        {creatingProfile ? "Create Your Profile" : "Edit Your Profile"}
       </h1>
       <p className="lead">
         <i className="fas fa-user" />
         {creatingProfile
           ? ` Let's get some information to make your`
-          : ' Add some changes to your profile'}
+          : " Add some changes to your profile"}
       </p>
       <small>* = required field</small>
       <form className="form" onSubmit={onSubmit}>
@@ -259,17 +263,4 @@ const ProfileForm = ({
   );
 };
 
-ProfileForm.propTypes = {
-  createProfile: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  profile: state.profile
-});
-
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  ProfileForm
-);
-
+export default ProfileForm;
