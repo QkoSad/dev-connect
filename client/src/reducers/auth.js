@@ -1,55 +1,76 @@
-import {
-  REGISTER_SUCCESS,
-  //REGISTER_FAIL,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  //LOGIN_FAIL,
-  LOGOUT,
-  ACCOUNT_DELETED
-} from '../actions/types';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem("token"),
   isAuthenticated: null,
   loading: true,
-  user: null
+  user: null,
 };
 
-function authReducer(state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
-    case USER_LOADED:
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    userLoaded(state, action) {
       return {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload
+        user: action.payload,
       };
-    case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
+    },
+    registerSuccess(state, action) {
       return {
         ...state,
-        ...payload,
+        ...action.payload,
         isAuthenticated: true,
-        loading: false
+        loading: false,
       };
-    case ACCOUNT_DELETED:
-    case AUTH_ERROR:
-    case LOGOUT:
+    },
+    loginSucces(state, action) {
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        loading: false,
+      };
+    },
+    accountDeleted(state, action) {
       return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
-        user: null
+        user: null,
       };
-    default:
-      return state;
-  }
-}
+    },
+    authError(state, action) {
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        user: null,
+      };
+    },
+    logOut(state, action) {
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        user: null,
+      };
+    },
+  },
+});
+export const {
+  logOut,
+  userLoaded,
+  loginSucces,
+  registerSuccess,
+  accountDeleted,
+  authError,
+} = authSlice.actions;
 
-
-export default authReducer;
-
+export default authSlice.reducer;

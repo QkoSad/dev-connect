@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
@@ -15,7 +16,6 @@ import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
 import NotFound from './components/layout/NotFound';
 import PrivateRoute from './components/routing/PrivateRoute';
-import { LOGOUT } from './actions/types';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -24,6 +24,10 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
+import { logOut } from './reducers/auth';
+
+// Level - 1
+//
 
 const App = () => {
   useEffect(() => {
@@ -38,7 +42,7 @@ const App = () => {
 
     // log user out from all tabs if they log out in one tab
     window.addEventListener("storage", () => {
-      if (!localStorage.token) store.dispatch({ type: LOGOUT });
+      if (!localStorage.token) store.dispatch(logOut);
     });
   }, []);
 
@@ -80,6 +84,16 @@ const App = () => {
       </Router>
     </Provider>
   );
+  /*
+  return (
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="login" element={<Login />} />
+        </Routes>
+      </Router>
+    </Provider>
+  );*/
 };
 
 export default App;

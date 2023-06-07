@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addEducation } from '../../actions/profile';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addEducation } from "../../actions/profile";
 
-const AddEducation = ({ addEducation }) => {
+const AddEducation = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    school: '',
-    degree: '',
-    fieldofstudy: '',
-    from: '',
-    to: '',
+    school: "",
+    degree: "",
+    fieldofstudy: "",
+    from: "",
+    to: "",
     current: false,
-    description: ''
+    description: "",
   });
 
   const { school, degree, fieldofstudy, from, to, description, current } =
@@ -32,9 +32,10 @@ const AddEducation = ({ addEducation }) => {
       <small>* = required field</small>
       <form
         className="form"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          addEducation(formData).then(() => navigate('/dashboard'));
+          await  dispatch(addEducation(formData)).then(() => navigate("/dashboard"));
+          // i have no idea how this works used to work, i removed the navigate function from the addEducation and it does now
         }}
       >
         <div className="form-group">
@@ -78,7 +79,7 @@ const AddEducation = ({ addEducation }) => {
               checked={current}
               value={current}
               onChange={() => setFormData({ ...formData, current: !current })}
-            />{' '}
+            />{" "}
             Current School
           </p>
         </div>
@@ -111,8 +112,5 @@ const AddEducation = ({ addEducation }) => {
   );
 };
 
-AddEducation.propTypes = {
-  addEducation: PropTypes.func.isRequired
-};
 
-export default connect(null, { addEducation })(AddEducation);
+export default AddEducation;
