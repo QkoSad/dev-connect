@@ -9,11 +9,6 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
-  const onChangeEmail = () =>
-    setEmail(email)
-  const onChangePasword = () =>
-    setPassword(password)
-
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     await dispatch(login(email, password));
@@ -36,7 +31,7 @@ const Login = () => {
             placeholder="Email Address"
             name="email"
             value={email}
-            onChange={onChangeEmail}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -45,7 +40,7 @@ const Login = () => {
             placeholder="Password"
             name="password"
             value={password}
-            onChange={onChangePasword}
+            onChange={(e)=>setPassword(e.target.value)}
             //used to be "6"
             minLength={6}
           />

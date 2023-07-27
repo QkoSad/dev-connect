@@ -40,7 +40,7 @@ const Register = () => {
             placeholder="Name"
             name="name"
             value={name}
-            onChange={() => setName(name)}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -49,7 +49,7 @@ const Register = () => {
             placeholder="Email Address"
             name="email"
             value={email}
-            onChange={() => setEmail(email)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
@@ -62,7 +62,7 @@ const Register = () => {
             placeholder="Password"
             name="password"
             value={password}
-            onChange={() => setPassword(password)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -71,7 +71,7 @@ const Register = () => {
             placeholder="Confirm Password"
             name="password2"
             value={password2}
-            onChange={() => setPassword2(password2)}
+            onChange={(e) => setPassword2(e.target.value)}
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />

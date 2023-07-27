@@ -1,8 +1,9 @@
-const config = require('config');
-const jwt = require('jsonwebtoken');
+import config from 'config'
+import jwt from 'jsonwebtoken'
+import type { Request, Response, NextFunction } from 'express';
 
-module.exports = function (req, res, next) {
-  
+function auth(req: Request, res: Response, next: NextFunction) {
+
   // Get token from header
   const token = req.header('x-auth-token');
   // Check if not token
@@ -16,7 +17,8 @@ module.exports = function (req, res, next) {
       if (error) {
         return res.status(401).json({ msg: 'Token is not valid' });
       } else {
-        req.user = decoded.user;
+        if ('user' in req && decoded && typeof decoded !== "string")
+          req.user = decoded?.user;
         next();
       }
     });
@@ -24,5 +26,6 @@ module.exports = function (req, res, next) {
     console.error('something wrong with auth middleware');
     res.status(500).json({ msg: 'Server Error' });
   }
-  
+
 };
+export default auth

@@ -1,12 +1,15 @@
-const express = require("express");
+import express from "express";
+import gravatar from "gravatar";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import config from "config";
+import { check, validationResult } from "express-validator";
+import User from "../../models/User";
+
+import normalizeUrl from "normalize-url";
+
+
 const router = express.Router();
-const gravatar = require("gravatar");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const config = require("config");
-const { check, validationResult } = require("express-validator");
-const User = require("../../models/User");
-const normalize = require('normalize-url');
 
 // @route    POST api/users
 // @desc     Register user
@@ -36,7 +39,7 @@ router.post(
           .json({ errors: [{ msg: "User already exists" }] });
       }
 
-      const avatar = normalize(
+      const avatar = normalizeUrl(
         gravatar.url(email, {
           s: "200",
           r: "pg",
@@ -64,20 +67,24 @@ router.post(
         },
       };
 
-      jwt.sign(
+      const jwtSecret = config.get('jwtSecret')
+      if (typeof jwtSecret === 'string') jwt.sign(
         payload,
-        config.get("jwtSecret"),
+        jwtSecret,
         { expiresIn: "5 days" },
         (err, token) => {
           if (err) throw err;
           res.json({ token });
         }
       );
-    } catch (err) {
-      console.error(err.message);
+    } catch (err: unknown) {
+      if (typeof err === 'string')
+        console.error(err)
+      else if (err instanceof Error)
+        console.error(err.message);
       res.status(500).send("Server error");
     }
   }
 );
 
-module.exports = router;
+module.exports = router
