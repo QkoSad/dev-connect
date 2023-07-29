@@ -2,7 +2,6 @@ import express from 'express'
 
 import connectDB from './config/db'
 
-
 import path from 'path'
 const app = express();
 

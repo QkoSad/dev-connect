@@ -25,13 +25,11 @@ store.subscribe(() => {
   // if the token changes set the value in localStorage and axios headers
   if (previousState.auth.token !== currentState.auth.token) {
     const token = currentState.auth.token;
-    if (typeof token === 'string') setAuthToken(token);
-    else throw new Error("token not string")
+    setAuthToken(token);
   }
 });
-// Infer the `RootState` and `AppDispatch` types from the store itself
+
 export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 
 export default store;

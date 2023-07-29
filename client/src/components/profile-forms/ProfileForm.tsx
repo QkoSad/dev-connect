@@ -82,7 +82,6 @@ const ProfileForm = () => {
     const editing = profile ? true : false;
     e.preventDefault();
     await dispatch(createProfile(formData, editing)).then(() => {
-      console.log(editing)
       if (!editing) navigate("/dashboard");
     });
   };

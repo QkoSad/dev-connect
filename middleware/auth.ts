@@ -2,7 +2,9 @@ import config from 'config'
 import jwt from 'jsonwebtoken'
 import type { Request, Response, NextFunction } from 'express';
 
-function auth(req: Request, res: Response, next: NextFunction) {
+interface ResponseAndUser extends Request { user: string }
+
+function auth(req: ResponseAndUser, res: Response, next: NextFunction) {
 
   // Get token from header
   const token = req.header('x-auth-token');
@@ -11,13 +13,14 @@ function auth(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ msg: 'No token, authorization denied' });
   }
 
+  console.log('auth middlewarwe')
   // Verify token
   try {
     jwt.verify(token, config.get('jwtSecret'), (error, decoded) => {
       if (error) {
         return res.status(401).json({ msg: 'Token is not valid' });
       } else {
-        if ('user' in req && decoded && typeof decoded !== "string")
+        if (decoded && typeof decoded !== "string")
           req.user = decoded?.user;
         next();
       }
@@ -29,3 +32,4 @@ function auth(req: Request, res: Response, next: NextFunction) {
 
 };
 export default auth
+
