@@ -2,7 +2,7 @@ import config from 'config'
 import jwt from 'jsonwebtoken'
 import type { Request, Response, NextFunction } from 'express';
 
-interface ResponseAndUser extends Request { user: string }
+interface ResponseAndUser extends Request { user?: string }
 
 function auth(req: ResponseAndUser, res: Response, next: NextFunction) {
 
