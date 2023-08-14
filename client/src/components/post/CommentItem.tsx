@@ -5,8 +5,8 @@ import { deleteComment } from "../../actions/post";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { Comment } from "../../types";
 interface CommentItemProps {
-  postId: string,
-  comment: Comment
+  postId: string;
+  comment: Comment;
 }
 const CommentItem = ({
   postId,

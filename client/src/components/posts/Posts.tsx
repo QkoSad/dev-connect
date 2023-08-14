@@ -13,7 +13,6 @@ const Posts = () => {
     fetchData();
   }, [dispatch]);
   const posts = useAppSelector((state) => state.post.posts);
- 
 
   return (
     <section className="container">

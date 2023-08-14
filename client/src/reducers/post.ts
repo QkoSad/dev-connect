@@ -3,10 +3,10 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import type { Post, Comment } from "../types";
 
 interface postState {
-  posts: Post[]
-  post: Post | null
-  loading: boolean
-  error: {}
+  posts: Post[];
+  post: Post | null;
+  loading: boolean;
+  error: {};
   //Todo erros
 }
 const initialState: postState = {
@@ -62,7 +62,7 @@ const postSlice = createSlice({
         posts: state.posts.map((post) =>
           post._id === action.payload.id
             ? { ...post, likes: action.payload.likes }
-            : post
+            : post,
         ),
         loading: false,
       };
@@ -74,9 +74,9 @@ const postSlice = createSlice({
           ...state,
           post: { ...state.post, comments: action.payload },
           loading: false,
-        }
+        };
       }
-      throw new Error('post missing from state')
+      throw new Error("post missing from state");
     },
     removeComment(state, action: PayloadAction<String>) {
       if ("post" in state && state.post !== null) {
@@ -85,13 +85,13 @@ const postSlice = createSlice({
           post: {
             ...state.post,
             comments: state.post.comments.filter(
-              (comment) => comment._id !== action.payload
+              (comment) => comment._id !== action.payload,
             ),
           },
           loading: false,
         };
       }
-      throw new Error('post missing from state')
+      throw new Error("post missing from state");
     },
   },
 });

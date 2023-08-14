@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { addExperience } from '../../actions/profile';
-import { useAppDispatch } from '../../utils/hooks';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { addExperience } from "../../actions/profile";
+import { useAppDispatch } from "../../utils/hooks";
 
 const AddExperience = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    company: '',
-    title: '',
-    location: '',
-    from: '',
-    to: '',
+    company: "",
+    title: "",
+    location: "",
+    from: "",
+    to: "",
     current: false,
-    description: ''
+    description: "",
   });
 
   const { company, title, location, from, to, current, description } = formData;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
     <section className="container">
@@ -33,7 +34,9 @@ const AddExperience = () => {
         className="form"
         onSubmit={async (e) => {
           e.preventDefault();
-          await dispatch(addExperience(formData)).then(() => navigate('/dashboard'));
+          await dispatch(addExperience(formData)).then(() =>
+            navigate("/dashboard"),
+          );
         }}
       >
         <div className="form-group">
@@ -79,7 +82,7 @@ const AddExperience = () => {
               onChange={() => {
                 setFormData({ ...formData, current: !current });
               }}
-            />{' '}
+            />{" "}
             Current Job
           </p>
         </div>

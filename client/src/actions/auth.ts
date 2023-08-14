@@ -10,30 +10,34 @@ import {
 import { AppThunk } from "../types";
 import { AxiosError, isAxiosError } from "axios";
 
-export const login = (email: string, password: string): AppThunk => async (dispatch) => {
-  const body = { email, password };
-  try {
-    const res = await api.post("/auth", body);
+export const login =
+  (email: string, password: string): AppThunk =>
+  async (dispatch) => {
+    const body = { email, password };
+    try {
+      const res = await api.post("/auth", body);
 
-    dispatch(loginSucces(res.data));
+      dispatch(loginSucces(res.data));
 
-    dispatch(loadUser());
-  } catch (err: unknown) {
-    if (err instanceof AxiosError || err instanceof Error) {
-      if (isAxiosError(err) && err.response !== undefined) {
-        const errors = err.response.data.errors;
-        if (errors) {
-          errors.forEach((error: any) => dispatch(createAlert(error.msg, "danger")));
+      dispatch(loadUser());
+    } catch (err: unknown) {
+      if (err instanceof AxiosError || err instanceof Error) {
+        if (isAxiosError(err) && err.response !== undefined) {
+          const errors = err.response.data.errors;
+          if (errors) {
+            errors.forEach((error: any) =>
+              dispatch(createAlert(error.msg, "danger")),
+            );
+          }
+          dispatch({
+            type: "auth/loginFail",
+          });
         }
-        dispatch({
-          type: "auth/loginFail",
-        });
       }
+      //normal err
     }
-    //normal err
-  }
-  // not error
-}
+    // not error
+  };
 
 export const loadUser = (): AppThunk => async (dispatch) => {
   try {
@@ -46,28 +50,36 @@ export const loadUser = (): AppThunk => async (dispatch) => {
 };
 
 // Register User
-export const register = (formData: { name: string, email: string, password: string }): AppThunk => async (dispatch) => {
-  try {
-    const res = await api.post("/users", formData);
+export const register =
+  (formData: { name: string; email: string; password: string }): AppThunk =>
+  async (dispatch) => {
+    try {
+      const res = await api.post("/users", formData);
 
-    dispatch(registerSuccess(res.data));
-    dispatch(loadUser());
-  } catch (err: unknown) {
-    if (err instanceof AxiosError) {
-      if (err !== undefined && 'response' in err && err.response !== undefined) {
-        const errors = err.response.data.errors;
+      dispatch(registerSuccess(res.data));
+      dispatch(loadUser());
+    } catch (err: unknown) {
+      if (err instanceof AxiosError) {
+        if (
+          err !== undefined &&
+          "response" in err &&
+          err.response !== undefined
+        ) {
+          const errors = err.response.data.errors;
 
-        if (errors) {
-          errors.forEach((error: any) => dispatch(createAlert(error.msg, "danger")));
+          if (errors) {
+            errors.forEach((error: any) =>
+              dispatch(createAlert(error.msg, "danger")),
+            );
+          }
+
+          dispatch({
+            type: "auth/registerFail",
+          });
         }
-
-        dispatch({
-          type: "auth/registerFail",
-        });
       }
-    };
-  }
-}
+    }
+  };
 
 export const logout = (): AppThunk => async (dispatch) => {
   dispatch(logOut);

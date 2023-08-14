@@ -7,7 +7,9 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date },
-}: { post: Post }) => {
+}: {
+  post: Post;
+}) => {
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
   return (

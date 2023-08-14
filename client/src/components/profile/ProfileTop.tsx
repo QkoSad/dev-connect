@@ -10,7 +10,9 @@ const ProfileTop = ({
     social,
     user: { name, avatar },
   },
-}: { profile: ProfileType }) => {
+}: {
+  profile: ProfileType;
+}) => {
   return (
     <div className="profile-top bg-primary p-2">
       <img className="round-img my-1" src={avatar} alt="" />
@@ -27,17 +29,17 @@ const ProfileTop = ({
         ) : null}
         {social
           ? Object.entries(social)
-            .filter(([_, value]) => value)
-            .map(([key, value]) => (
-              <a
-                key={key}
-                href={value}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className={`fab fa-${key} fa-2x`}></i>
-              </a>
-            ))
+              .filter(([_, value]) => value)
+              .map(([key, value]) => (
+                <a
+                  key={key}
+                  href={value}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className={`fab fa-${key} fa-2x`}></i>
+                </a>
+              ))
           : null}
       </div>
     </div>

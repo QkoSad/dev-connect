@@ -6,14 +6,14 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 const Profiles = () => {
   const dispatch = useAppDispatch();
-  
+
   useEffect(() => {
     async function fetchData() {
       await dispatch(getProfiles());
     }
     fetchData();
   }, [dispatch]);
-  
+
   const { profiles, loading } = useAppSelector((state) => state.profile);
   return (
     <section className="container">

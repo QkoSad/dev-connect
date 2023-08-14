@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
-import type { User } from '../types'
+import type { User } from "../types";
 
 interface authState {
-  token: string | null
-  isAuthenticated: boolean | null
-  loading: boolean
-  user: User | null
+  token: string | null;
+  isAuthenticated: boolean | null;
+  loading: boolean;
+  user: User | null;
 }
 
 const initialState: authState = {

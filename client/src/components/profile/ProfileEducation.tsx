@@ -1,14 +1,16 @@
-import React from 'react';
-import { EducationType } from '../../types';
-import formatDate from '../../utils/formatDate';
+import React from "react";
+import { EducationType } from "../../types";
+import formatDate from "../../utils/formatDate";
 
 const ProfileEducation = ({
-  education: { school, degree, fieldofstudy, current, to, from, description }
-}: { education: EducationType }) => (
+  education: { school, degree, fieldofstudy, current, to, from, description },
+}: {
+  education: EducationType;
+}) => (
   <div>
     <h3 className="text-dark">{school}</h3>
     <p>
-      {formatDate(from)} - {to ? formatDate(to) : 'Now'}
+      {formatDate(from)} - {to ? formatDate(to) : "Now"}
     </p>
     <p>
       <strong>Degree: </strong> {degree}
@@ -21,7 +23,5 @@ const ProfileEducation = ({
     </p>
   </div>
 );
-
-
 
 export default ProfileEducation;

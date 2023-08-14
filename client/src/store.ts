@@ -1,20 +1,19 @@
-import setAuthToken from './utils/setAuthToken';
-import { configureStore } from '@reduxjs/toolkit';
+import setAuthToken from "./utils/setAuthToken";
+import { configureStore } from "@reduxjs/toolkit";
 
-import alertReducer from './reducers/alert';
-import authReducer from './reducers/auth';
-import profileReducer from './reducers/profile'
-import postReducer from './reducers/post'
-
+import alertReducer from "./reducers/alert";
+import authReducer from "./reducers/auth";
+import profileReducer from "./reducers/profile";
+import postReducer from "./reducers/post";
 
 const store = configureStore({
   reducer: {
     alert: alertReducer,
     auth: authReducer,
     profile: profileReducer,
-    post: postReducer
-  }
-})
+    post: postReducer,
+  },
+});
 
 let currentState = store.getState();
 
@@ -29,8 +28,7 @@ store.subscribe(() => {
   }
 });
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export default store;
-

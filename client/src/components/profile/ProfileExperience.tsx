@@ -1,14 +1,16 @@
-import React from 'react';
-import { ExperienceType } from '../../types';
-import formatDate from '../../utils/formatDate';
+import React from "react";
+import { ExperienceType } from "../../types";
+import formatDate from "../../utils/formatDate";
 
 const ProfileExperience = ({
-  experience: { company, title, location, current, to, from, description }
-}: { experience: ExperienceType }) => (
+  experience: { company, title, location, current, to, from, description },
+}: {
+  experience: ExperienceType;
+}) => (
   <div>
     <h3 className="text-dark">{company}</h3>
     <p>
-      {formatDate(from)} - {to ? formatDate(to) : 'Now'}
+      {formatDate(from)} - {to ? formatDate(to) : "Now"}
     </p>
     <p>
       <strong>Position: </strong> {title}
@@ -21,6 +23,5 @@ const ProfileExperience = ({
     </p>
   </div>
 );
-
 
 export default ProfileExperience;

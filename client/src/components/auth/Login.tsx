@@ -1,17 +1,30 @@
-import React, { useState } from "react";
+import * as React from 'react';
 import { Link, Navigate } from "react-router-dom";
+
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { login } from "../../actions/auth";
 
-const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+
+export default function Login() {
+
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
-  const onSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    await dispatch(login(email, password));
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const email = data.get('email') as string
+    const password = data.get('pasword') as string
+    if (email && password)
+      dispatch(login(email, password));
   };
 
   if (isAuthenticated) {
@@ -19,39 +32,54 @@ const Login = () => {
   }
 
   return (
-    <section className="container">
-      <h1 className="large text-primary">Sign In</h1>
-      <p className="lead">
-        <i className="fas fa-user" /> Sign Into Your Account
-      </p>
-      <form className="form" onSubmit={onSubmit}>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Log In
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            autoFocus
           />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
+          <TextField
+            margin="normal"
+            required
+            fullWidth
             name="password"
-            value={password}
-            onChange={(e)=>setPassword(e.target.value)}
-            //used to be "6"
-            minLength={6}
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
           />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
-      </form>
-      <p className="my-1">
-        Don't have an account? <Link to="/register">Sign Up</Link>
-      </p>
-    </section>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            LOG IN
+          </Button>
+        </Box>
+      </Box>
+      <p> Don't have an account? <Link to="/register">Sign Up</Link></p>
+    </Container>
   );
-};
-
-export default Login;
+}

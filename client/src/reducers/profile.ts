@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Repo, ProfileType } from "../types";
 
 type ProfileState = {
-  profile: ProfileType | null
-  profiles: ProfileType[]
-  repos: Repo[]
-  loading: boolean
-  error: {}
-}
+  profile: ProfileType | null;
+  profiles: ProfileType[];
+  repos: Repo[];
+  loading: boolean;
+  error: {};
+};
 
 const initialState: ProfileState = {
   profile: null,

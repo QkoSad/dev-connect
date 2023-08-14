@@ -19,8 +19,9 @@ const AddEducation = () => {
   const { school, degree, fieldofstudy, from, to, description, current } =
     formData;
 
-  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+  const onChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => setFormData({ ...formData, [event.target.name]: event.target.value });
 
   return (
     <section className="container">
@@ -34,7 +35,9 @@ const AddEducation = () => {
         className="form"
         onSubmit={async (e) => {
           e.preventDefault();
-          await dispatch(addEducation(formData)).then(() => navigate("/dashboard"));
+          await dispatch(addEducation(formData)).then(() =>
+            navigate("/dashboard"),
+          );
           // i have no idea how this works used to work, i removed the navigate function from the addEducation and it does now
         }}
       >
@@ -112,6 +115,5 @@ const AddEducation = () => {
     </section>
   );
 };
-
 
 export default AddEducation;

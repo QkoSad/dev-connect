@@ -18,8 +18,7 @@ const Profile = () => {
 
   useEffect(() => {
     async function fetchData() {
-      if (typeof id === 'string')
-        await dispatch(getProfileById(id));
+      if (typeof id === "string") await dispatch(getProfileById(id));
     }
     fetchData();
   }, [dispatch, id]);
@@ -48,7 +47,7 @@ const Profile = () => {
               <h2 className="text-primary">Experience</h2>
               {profile.experience.length > 0 ? (
                 <Fragment>
-                  {profile.experience.map((experience:ExperienceType) => (
+                  {profile.experience.map((experience: ExperienceType) => (
                     <ProfileExperience
                       key={experience._id}
                       experience={experience}
@@ -64,7 +63,7 @@ const Profile = () => {
               <h2 className="text-primary">Education</h2>
               {profile.education.length > 0 ? (
                 <Fragment>
-                  {profile.education.map((education:EducationType) => (
+                  {profile.education.map((education: EducationType) => (
                     <ProfileEducation
                       key={education._id}
                       education={education}

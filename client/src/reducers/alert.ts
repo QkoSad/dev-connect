@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { Alert } from "../types";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-type AlertState = Alert[]
+type AlertState = Alert[];
 
 const initialState: AlertState = [];
 

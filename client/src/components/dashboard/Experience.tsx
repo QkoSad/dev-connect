@@ -1,17 +1,17 @@
-import React, { Fragment } from 'react';
-import { deleteExperience } from '../../actions/profile';
-import { ExperienceType } from '../../types';
-import formatDate from '../../utils/formatDate';
-import { useAppDispatch } from '../../utils/hooks';
+import React, { Fragment } from "react";
+import { deleteExperience } from "../../actions/profile";
+import { ExperienceType } from "../../types";
+import formatDate from "../../utils/formatDate";
+import { useAppDispatch } from "../../utils/hooks";
 
-const Experience = ({experience}:{experience:ExperienceType[]}) => {
+const Experience = ({ experience }: { experience: ExperienceType[] }) => {
   const dispatch = useAppDispatch();
   const experiences = experience.map((exp) => (
     <tr key={exp._id}>
       <td>{exp.company}</td>
       <td className="hide-sm">{exp.title}</td>
       <td>
-        {formatDate(exp.from)} - {exp.to ? formatDate(exp.to) : 'Now'}
+        {formatDate(exp.from)} - {exp.to ? formatDate(exp.to) : "Now"}
       </td>
       <td>
         <button
@@ -41,7 +41,5 @@ const Experience = ({experience}:{experience:ExperienceType[]}) => {
     </Fragment>
   );
 };
-
-
 
 export default Experience;
