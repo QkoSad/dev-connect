@@ -1,0 +1,6 @@
+1. When creating profile in the Profile form need to be added validation for the
+email because if the email is not email it gets sent to the server and crashes
+Fix all the form data apis, formData
+Extract the inpudate component from addeducation
+maybe fix that addeducation
+

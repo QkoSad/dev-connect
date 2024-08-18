@@ -13,7 +13,6 @@ function auth(req: ResponseAndUser, res: Response, next: NextFunction) {
     return res.status(401).json({ msg: 'No token, authorization denied' });
   }
 
-  console.log('auth middlewarwe')
   // Verify token
   try {
     jwt.verify(token, config.get('jwtSecret'), (error, decoded) => {
