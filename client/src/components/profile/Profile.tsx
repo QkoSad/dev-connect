@@ -9,6 +9,7 @@ import ProfileGithub from "./ProfileGithub";
 import { getProfileById } from "../../actions/profile";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { EducationType, ExperienceType } from "../../types";
+import { Box, Button, Card, Paper, Typography } from "@mui/material";
 
 const Profile = () => {
   const profile = useAppSelector((state) => state.profile.profile);
@@ -24,64 +25,62 @@ const Profile = () => {
   }, [dispatch, id]);
 
   return (
-    <section className="container">
+    <Box display="flex" flexDirection="column" alignItems="center">
       {profile === null ? (
         <Spinner />
       ) : (
-        <Fragment>
-          <Link to="/profiles" className="btn btn-light">
+        <>
+          <Button component={Link} to="/profiles">
             Back To Profiles
-          </Link>
+          </Button>
           {auth.isAuthenticated &&
             auth.loading === false &&
             auth.user !== null &&
             auth.user._id === profile.user._id && (
-              <Link to="/edit-profile" className="btn btn-dark">
+              <Button component={Link} to="/edit-profilee">
                 Edit Profile
-              </Link>
+              </Button>
             )}
-          <div className="profile-grid my-1">
+          <Paper elevation={9} sx={{width:'90%'}}>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
-            <div className="profile-exp bg-white p-2">
-              <h2 className="text-primary">Experience</h2>
+            <Box>
+              <Typography variant="h2">Experience</Typography>
               {profile.experience.length > 0 ? (
-                <Fragment>
+                <>
                   {profile.experience.map((experience: ExperienceType) => (
                     <ProfileExperience
                       key={experience._id}
                       experience={experience}
                     />
                   ))}
-                </Fragment>
+                </>
               ) : (
-                <h4>No experience credentials</h4>
+                <Typography variant="h4">No experience credentials</Typography>
               )}
-            </div>
-
-            <div className="profile-edu bg-white p-2">
-              <h2 className="text-primary">Education</h2>
+            </Box>
+            <Box>
+              <Typography variant="h2">Education</Typography>
               {profile.education.length > 0 ? (
-                <Fragment>
+                <>
                   {profile.education.map((education: EducationType) => (
                     <ProfileEducation
                       key={education._id}
                       education={education}
                     />
                   ))}
-                </Fragment>
+                </>
               ) : (
-                <h4>No education credentials</h4>
+                <Typography variant="h4">No education credentials</Typography>
               )}
-            </div>
-
+            </Box>
             {profile.githubusername && (
               <ProfileGithub username={profile.githubusername} />
             )}
-          </div>
-        </Fragment>
+          </Paper>
+        </>
       )}
-    </section>
+    </Box>
   );
 };
 

@@ -1,3 +1,4 @@
+import { Box, Button, Paper, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import { ProfileType } from "../../types";
@@ -14,18 +15,18 @@ const ProfileItem = ({
   profile: ProfileType;
 }) => {
   return (
-    <div className="profile bg-light">
+    <Paper>
       <img src={avatar} alt="" className="round-img" />
-      <div>
-        <h2>{name}</h2>
-        <p>
+      <Box>
+        <Typography>{name}</Typography>
+        <Typography>
           {status} {company && <span> at {company}</span>}
-        </p>
-        <p className="my-1">{location && <span>{location}</span>}</p>
-        <Link to={`/profile/${_id}`} className="btn btn-primary">
+        </Typography>
+        <Typography>{location && <span>{location}</span>}</Typography>
+        <Button component={Link} to={`/profile/${_id}`}>
           View Profile
-        </Link>
-      </div>
+        </Button>
+      </Box>
       <ul>
         {skills.slice(0, 4).map((skill, index) => (
           <li key={index} className="text-primary">
@@ -33,7 +34,7 @@ const ProfileItem = ({
           </li>
         ))}
       </ul>
-    </div>
+    </Paper>
   );
 };
 

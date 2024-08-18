@@ -4,6 +4,20 @@ import formatDate from "../../utils/formatDate";
 import { addLike, removeLike, deletePost } from "../../actions/post";
 import { Post } from "../../types";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Container,
+  Typography,
+} from "@mui/material";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date },
@@ -13,48 +27,40 @@ const PostItem = ({
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
   return (
-    <div className="post bg-white p-1 my-1">
-      <div>
-        <Link to={`/profile/${user}`}>
-          <img className="round-img" src={avatar} alt="" />
-          <h4>{name}</h4>
-        </Link>
-      </div>
-      <div>
-        <p className="my-1">{text}</p>
-        <p className="post-date">Posted on {formatDate(date)}</p>
-        <button
-          onClick={async () => await dispatch(addLike(_id))}
-          type="button"
-          className="btn btn-light"
-        >
-          <i className="fas fa-thumbs-up" />{" "}
-          <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-        </button>
-        <button
-          onClick={async () => await dispatch(removeLike(_id))}
-          type="button"
-          className="btn btn-light"
-        >
-          <i className="fas fa-thumbs-down" />
-        </button>
-        <Link to={`/posts/${_id}`} className="btn btn-primary">
-          Discussion{" "}
-          {comments.length > 0 && (
-            <span className="comment-count">{comments.length}</span>
-          )}
-        </Link>
+    <Container maxWidth="sm">
+      <Card variant="outlined">
+        <CardHeader
+          avatar={<Avatar src={avatar}>R</Avatar>}
+          title={<Link to={`/profile/${user}`}>{name}</Link>}
+          subheader={formatDate(date)}
+        />
+        <CardContent>
+          <Typography variant="subtitle1">{text}</Typography>
+        </CardContent>
+      </Card>
+      <Box>
+        <Button onClick={async () => await dispatch(addLike(_id))}>
+          <ThumbUpIcon />
+        </Button>
+        <Typography display="inline-flex" variant="button">
+          {likes.length}
+        </Typography>
+        <Button onClick={async () => await dispatch(removeLike(_id))}>
+          <ThumbDownIcon />
+        </Button>
+        <Button component={Link} to={`/posts/${_id}`}>
+          <Typography>Comments </Typography>
+        </Button>
+        <Typography display="inline-flex" variant="button">
+          {comments.length}
+        </Typography>
         {!auth.loading && auth.user !== null && user === auth.user._id && (
-          <button
-            onClick={async () => await dispatch(deletePost(_id))}
-            type="button"
-            className="btn btn-danger"
-          >
-            <i className="fas fa-times" />
-          </button>
+          <Button onClick={async () => await dispatch(deletePost(_id))}>
+            <DeleteIcon />
+          </Button>
         )}
-      </div>
-    </div>
+      </Box>
+    </Container>
   );
 };
 export default PostItem;

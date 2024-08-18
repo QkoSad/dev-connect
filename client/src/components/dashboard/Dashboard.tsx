@@ -5,7 +5,7 @@ import DashboardActions from "./DashboardActions";
 import Experience from "./Experience";
 import Education from "./Education";
 import { getCurrentProfile, deleteAccount } from "../../actions/profile";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -18,30 +18,44 @@ const Dashboard = () => {
   const user = useAppSelector((state) => state.auth.user);
   const profile = useAppSelector((state) => state.profile.profile);
   return (
-    <Box component='main' justifyContent='center' flexDirection='column' minHeight='50vh' display='flex' alignItems='center'>
-      <Typography variant="h3"  component='h2'>Dashboard </Typography>
-      <Typography variant="h5" component='h3' display='block'> Welcome {user && user.name}</Typography>
+    <Box
+      component="main"
+      justifyContent="center"
+      flexDirection="column"
+      minHeight="50vh"
+      display="flex"
+      alignItems="center"
+      gap="1rem"
+    >
+      <Typography variant="h3" component="h2">
+        Dashboard{" "}
+      </Typography>
+      <Typography variant="h5" component="h3" display="block">
+        Welcome {user && user.name}
+      </Typography>
       {profile !== null ? (
         <>
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
-
-          <div className="my-2">
-            <button
-              className="btn btn-danger"
+          <Box sx={{ marginTop: "10vh" }}>
+            <Button
+              variant="contained"
+              color="error"
               onClick={async () => await dispatch(deleteAccount())}
             >
-              <i className="fas fa-user" /> Delete My Account
-            </button>
-          </div>
+              Delete My Account
+            </Button>
+          </Box>
         </>
       ) : (
         <>
-          <Typography>You have not yet setup a profile, please add some info</Typography>
-          <Link to="/create-profile">
+          <Typography variant="h6">
+            You have not yet setup a profile, please add some info
+          </Typography>
+          <Button component={Link} to="/create-profile" variant="contained">
             Create Profile
-          </Link>
+          </Button>
         </>
       )}
     </Box>

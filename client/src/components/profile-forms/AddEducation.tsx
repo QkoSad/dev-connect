@@ -1,8 +1,37 @@
+import styled from "@emotion/styled";
+import {
+  Button,
+  Box,
+  Container,
+  TextField,
+  Typography,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { addEducation } from "../../actions/profile";
 import { useAppDispatch } from "../../utils/hooks";
 
+const StyledInput = styled("input")`
+  border-radius: 4px;
+  border-color: #c4c4c4;
+  border-width: 1px;
+  padding: 16.5px 14px;
+  min-width: 0;
+  display: block;
+  margin: 0;
+  height: 1.4375em;
+  box-sizing: content-box;
+  color: currentcolor;
+  letter-spacing: inherit;
+  font: inherit;
+  cursor: text;
+  &:focus {
+    outline: 2px solid #1976d2;
+    border-color: transparent;
+  }
+`;
 const AddEducation = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -20,99 +49,69 @@ const AddEducation = () => {
     formData;
 
   const onChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => setFormData({ ...formData, [event.target.name]: event.target.value });
 
   return (
-    <section className="container">
-      <h1 className="large text-primary">Add Your Education</h1>
-      <p className="lead">
-        <i className="fas fa-code-branch" /> Add any school or bootcamp that you
-        have attended
-      </p>
-      <small>* = required field</small>
-      <form
-        className="form"
+    <Container maxWidth="sm">
+      <Typography variant="h4">Add Your Education</Typography>
+      <Typography variant="body1">
+        Add any school or bootcamp that you have attended
+      </Typography>
+      <Typography variant="body2">* = required field</Typography>
+      <Box
+        component="form"
+        display="flex"
+        flexDirection="column"
+        alignItems="left"
+        gap="1rem"
+        noValidate
+        maxWidth="500px"
+        sx={{ mt: 3 }}
         onSubmit={async (e) => {
           e.preventDefault();
           await dispatch(addEducation(formData)).then(() =>
-            navigate("/dashboard"),
+            navigate("/dashboard")
           );
-          // i have no idea how this works used to work, i removed the navigate function from the addEducation and it does now
         }}
       >
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* School or Bootcamp"
-            name="school"
-            value={school}
-            onChange={onChange}
-            required
+        <TextField
+          name="school"
+          label="School or Bootcamp"
+          fullWidth
+          autoFocus
+        />
+        <TextField name="degree" label="Gegree or Certificate" fullWidth />
+        <TextField name="fieldofstudy" label="Field of Study" fullWidth />
+        <Typography variant="body1">From Date</Typography>
+        <StyledInput type="date" name="from" value={from} onChange={onChange} />
+        <Typography>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={current}
+                onChange={() => setFormData({ ...formData, current: !current })}
+                inputProps={{ "aria-label": "controlled" }}
+              />
+            }
+            label="Current"
           />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* Degree or Certificate"
-            name="degree"
-            value={degree}
-            onChange={onChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Field of Study"
-            name="fieldofstudy"
-            value={fieldofstudy}
-            onChange={onChange}
-          />
-        </div>
-        <div className="form-group">
-          <h4>From Date</h4>
-          <input type="date" name="from" value={from} onChange={onChange} />
-        </div>
-        <div className="form-group">
-          <p>
-            <input
-              type="checkbox"
-              name="current"
-              checked={current}
-              //TODO this fuckery here
-              value={current as unknown as string}
-              onChange={() => setFormData({ ...formData, current: !current })}
-            />{" "}
-            Current School
-          </p>
-        </div>
-        <div className="form-group">
-          <h4>To Date</h4>
-          <input
-            type="date"
-            name="to"
-            value={to}
-            onChange={onChange}
-            disabled={current}
-          />
-        </div>
-        <div className="form-group">
-          <textarea
-            name="description"
-            cols={30}
-            rows={5}
-            placeholder="Program Description"
-            value={description}
-            onChange={onChange}
-          />
-        </div>
-        <input type="submit" className="btn btn-primary my-1" />
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-        </Link>
-      </form>
-    </section>
+        </Typography>
+        <Typography>To Date</Typography>
+        <StyledInput type="date" name="from" value={to} onChange={onChange} />
+        <TextField
+          name="desc"
+          label="Program description"
+          multiline
+          rows={4}
+          fullWidth
+        />
+        <Button variant="contained">Sumbit Query</Button>
+      </Box>
+      <Button component={Link} to="/dashboard">
+        Go Back
+      </Button>
+    </Container>
   );
 };
 

@@ -6,6 +6,7 @@ import CommentForm from "../post/CommentForm";
 import CommentItem from "../post/CommentItem";
 import { getPost } from "../../actions/post";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { Box, Button, Container } from "@mui/material";
 
 const Post = () => {
   const dispatch = useAppDispatch();
@@ -21,18 +22,16 @@ const Post = () => {
   return loading || post === null ? (
     <Spinner />
   ) : (
-    <section className="container">
-      <Link to="/posts" className="btn">
-        Back To Posts
-      </Link>
+    <Box display="flex" flexDirection="column" gap="1rem" alignItems="center">
+      <Button component={Link} to="/posts">
+        Back to Posts
+      </Button>
       <PostItem post={post} />
       <CommentForm postId={post._id} />
-      <div className="comments">
         {post.comments.map((comment) => (
           <CommentItem key={comment._id} comment={comment} postId={post._id} />
         ))}
-      </div>
-    </section>
+    </Box>
   );
 };
 

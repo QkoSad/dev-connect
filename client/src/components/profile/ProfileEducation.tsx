@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { EducationType } from "../../types";
 import formatDate from "../../utils/formatDate";
@@ -7,21 +8,15 @@ const ProfileEducation = ({
 }: {
   education: EducationType;
 }) => (
-  <div>
-    <h3 className="text-dark">{school}</h3>
-    <p>
+  <Box>
+    <Typography variant="h3">{school}</Typography>
+    <Typography>
       {formatDate(from)} - {to ? formatDate(to) : "Now"}
-    </p>
-    <p>
-      <strong>Degree: </strong> {degree}
-    </p>
-    <p>
-      <strong>Field Of Study: </strong> {fieldofstudy}
-    </p>
-    <p>
-      <strong>Description: </strong> {description}
-    </p>
-  </div>
+    </Typography>
+    <Typography>Degree: {degree}</Typography>
+    <Typography>Field Of Study: {fieldofstudy}</Typography>
+    <Typography>Description: {description}</Typography>
+  </Box>
 );
 
 export default ProfileEducation;

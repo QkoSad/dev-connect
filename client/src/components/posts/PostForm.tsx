@@ -1,3 +1,4 @@
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { addPost } from "../../actions/post";
 import { useAppDispatch } from "../../utils/hooks";
@@ -6,30 +7,33 @@ const PostForm = () => {
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
   return (
-    <div className="post-form">
-      <div className="bg-primary p">
-        <h3>Say Something...</h3>
-      </div>
-      <form
-        className="form my-1"
+    <Box>
+      <Typography>Say Something...</Typography>
+      <Box
+        component="form"
+        display="flex"
+        gap="1rem"
+        noValidate
+        sx={{ mt: 3,mb:3 }}
         onSubmit={async (e) => {
           e.preventDefault();
           await dispatch(addPost({ text }));
           setText("");
         }}
       >
-        <textarea
+        <TextField
           name="text"
-          cols={30}
-          rows={5}
-          placeholder="Create a post"
+          label="Create a post"
+          fullWidth
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e)=> setText(e.target.value)}
+          multiline
+rows={3}
           required
         />
-        <input type="submit" className="btn btn-dark my-1" value="Submit" />
-      </form>
-    </div>
+        <Button variant="contained">Submit</Button>
+      </Box>
+    </Box>
   );
 };
 

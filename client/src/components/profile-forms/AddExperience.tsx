@@ -1,3 +1,13 @@
+import styled from "@emotion/styled";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Container } from "@mui/system";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { addExperience } from "../../actions/profile";
@@ -18,100 +28,84 @@ const AddExperience = () => {
 
   const { company, title, location, from, to, current, description } = formData;
 
+  const StyledInput = styled("input")`
+    border-radius: 4px;
+    border-color: #c4c4c4;
+    border-width: 1px;
+    padding: 16.5px 14px;
+    min-width: 0;
+    display: block;
+    margin: 0;
+    height: 1.4375em;
+    box-sizing: content-box;
+    color: currentcolor;
+    letter-spacing: inherit;
+    font: inherit;
+    cursor: text;
+    &:focus {
+      outline: 2px solid #1976d2;
+      border-color: transparent;
+    }
+  `;
   const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <section className="container">
-      <h1 className="large text-primary">Add An Experience</h1>
-      <p className="lead">
-        <i className="fas fa-code-branch" /> Add any developer/programming
-        positions that you have had in the past
-      </p>
-      <small>* = required field</small>
-      <form
-        className="form"
+    <Container maxWidth="sm">
+      <Typography variant="h4">Add An Experience</Typography>
+      <Typography variant="body1">
+        Add any developer/programming positions that you have had in the past
+      </Typography>
+      <Typography variant="body2">* = required field</Typography>
+      <Box
+        component="form"
+        display="flex"
+        flexDirection="column"
+        alignItems="left"
+        gap="1rem"
+        noValidate
+        maxWidth="500px"
+        sx={{ mt: 3 }}
         onSubmit={async (e) => {
           e.preventDefault();
           await dispatch(addExperience(formData)).then(() =>
-            navigate("/dashboard"),
+            navigate("/dashboard")
           );
         }}
       >
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* Job Title"
-            name="title"
-            value={title}
-            onChange={onChange}
-            required
+        <TextField name="title" label="Job Title" fullWidth required />
+        <TextField name="company" label="Company" required />
+        <TextField name="location" label="Location" />
+        <Typography variant="body1">From Date</Typography>
+        <StyledInput type="date" name="from" value={from} onChange={onChange} />
+        <Typography>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={current}
+                onChange={() => setFormData({ ...formData, current: !current })}
+                inputProps={{ "aria-label": "controlled" }}
+              />
+            }
+            label="Current"
           />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* Company"
-            name="company"
-            value={company}
-            onChange={onChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Location"
-            name="location"
-            value={location}
-            onChange={onChange}
-          />
-        </div>
-        <div className="form-group">
-          <h4>From Date</h4>
-          <input type="date" name="from" value={from} onChange={onChange} />
-        </div>
-        <div className="form-group">
-          <p>
-            <input
-              type="checkbox"
-              name="current"
-              checked={current}
-              value={current as unknown as string}
-              onChange={() => {
-                setFormData({ ...formData, current: !current });
-              }}
-            />{" "}
-            Current Job
-          </p>
-        </div>
-        <div className="form-group">
-          <h4>To Date</h4>
-          <input
-            type="date"
-            name="to"
-            value={to}
-            onChange={onChange}
-            disabled={current}
-          />
-        </div>
-        <div className="form-group">
-          <textarea
-            name="description"
-            cols={30}
-            rows={5}
-            placeholder="Job Description"
-            value={description}
-            onChange={onChange}
-          />
-        </div>
-        <input type="submit" className="btn btn-primary my-1" />
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-        </Link>
-      </form>
-    </section>
+        </Typography>
+        <Typography>To Date</Typography>
+        <StyledInput type="date" name="from" value={to} onChange={onChange} />
+        <TextField
+          name="desc"
+          label="Job description"
+          multiline
+          rows={4}
+          fullWidth
+        />
+        <Button variant="contained">Sumbit Query</Button>
+      </Box>
+      <Button component={Link} to="/dashboard">
+        Go Back
+      </Button>
+    </Container>
   );
 };
 

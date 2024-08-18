@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import { Typography } from "@mui/material";
+import React from "react";
 import { deleteExperience } from "../../actions/profile";
 import { ExperienceType } from "../../types";
 import formatDate from "../../utils/formatDate";
@@ -24,8 +25,13 @@ const Experience = ({ experience }: { experience: ExperienceType[] }) => {
     </tr>
   ));
 
+  if (experiences.length === 0)
+    return (
+      <Typography variant="h5">You have no experiences, consider adding some.</Typography>
+    );
+
   return (
-    <Fragment>
+    <>
       <h2 className="my-2">Experience Credentials</h2>
       <table className="table">
         <thead>
@@ -38,7 +44,7 @@ const Experience = ({ experience }: { experience: ExperienceType[] }) => {
         </thead>
         <tbody>{experiences}</tbody>
       </table>
-    </Fragment>
+    </>
   );
 };
 

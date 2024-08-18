@@ -1,3 +1,4 @@
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { addComment } from "../../actions/post";
 import { useAppDispatch } from "../../utils/hooks";
@@ -7,30 +8,32 @@ const CommentForm = ({ postId }: { postId: string }) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="post-form">
-      <div className="bg-primary p">
-        <h3>Leave a Comment</h3>
-      </div>
-      <form
-        className="form my-1"
+    <Container maxWidth="sm">
+      <Typography>Leave a Comment</Typography>
+      <Box
+        component="form"
+        display="flex"
+        flexDirection="column"
+        alignItems="left"
+        gap="1rem"
         onSubmit={async (e) => {
           e.preventDefault();
           await dispatch(addComment(postId, { text }));
           setText("");
         }}
       >
-        <textarea
+        <TextField
           name="text"
-          cols={30}
-          rows={5}
-          placeholder="Comment the post"
+          label="Comment the post"
+          fullWidth
+          multiline
+          rows={4}
           value={text}
           onChange={(e) => setText(e.target.value)}
-          required
         />
-        <input type="submit" className="btn btn-dark my-1" value="Submit" />
-      </form>
-    </div>
+        <Button>Submit</Button>
+      </Box>
+    </Container>
   );
 };
 

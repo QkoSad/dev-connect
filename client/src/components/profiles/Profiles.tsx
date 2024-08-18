@@ -3,6 +3,7 @@ import Spinner from "../layout/Spinner";
 import ProfileItem from "./ProfileItem";
 import { getProfiles } from "../../actions/profile";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { Box, Container, Typography } from "@mui/material";
 
 const Profiles = () => {
   const dispatch = useAppDispatch();
@@ -16,28 +17,29 @@ const Profiles = () => {
 
   const { profiles, loading } = useAppSelector((state) => state.profile);
   return (
-    <section className="container">
-      {loading ? (
-        <Spinner />
-      ) : (
-        <Fragment>
-          <h1 className="large text-primary">Developers</h1>
-          <p className="lead">
-            <i className="fab fa-connectdevelop" /> Browse and connect with
-            developers
-          </p>
-          <div className="profiles">
-            {profiles.length > 0 ? (
-              profiles.map((profile) => (
-                <ProfileItem key={profile._id} profile={profile} />
-              ))
-            ) : (
-              <h4>No profiles found...</h4>
-            )}
-          </div>
-        </Fragment>
-      )}
-    </section>
+    <Container maxWidth="sm">
+      <Box display="flex" flexDirection="column" alignItems="center">
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Typography variant="h2">Developers</Typography>
+            <Typography variant="h6">
+              Browse and connect with developers
+            </Typography>
+            <Box>
+              {profiles.length > 0 ? (
+                profiles.map((profile) => (
+                  <ProfileItem key={profile._id} profile={profile} />
+                ))
+              ) : (
+                <Typography>No profiles found...</Typography>
+              )}
+            </Box>
+          </>
+        )}
+      </Box>
+    </Container>
   );
 };
 

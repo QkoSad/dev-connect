@@ -3,6 +3,7 @@ import { deleteEducation } from "../../actions/profile";
 import formatDate from "../../utils/formatDate";
 import { EducationType } from "../../types";
 import { useAppDispatch } from "../../utils/hooks";
+import { Box, Typography } from "@mui/material";
 
 const Education = ({ education }: { education: EducationType[] }) => {
   const dispatch = useAppDispatch();
@@ -24,9 +25,17 @@ const Education = ({ education }: { education: EducationType[] }) => {
     </tr>
   ));
 
+  if (education.length === 0)
+    return (
+      <Box>
+        <Typography variant="h5">
+          You have no education added to your profile, consider adding some.
+        </Typography>
+      </Box>
+    );
   return (
-    <Fragment>
-      <h2 className="my-2">Education Credentials</h2>
+    <>
+      <Typography variant='h5'>Education Credentials</Typography>
       <table className="table">
         <thead>
           <tr>
@@ -38,7 +47,7 @@ const Education = ({ education }: { education: EducationType[] }) => {
         </thead>
         <tbody>{educations}</tbody>
       </table>
-    </Fragment>
+    </>
   );
 };
 

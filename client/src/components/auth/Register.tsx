@@ -3,17 +3,15 @@ import { Navigate, Link } from "react-router-dom";
 import { createAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 export default function SignUp() {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
@@ -23,14 +21,13 @@ export default function SignUp() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const password = data.get('password') as string
-    const password2 = data.get('password') as string
-    const email = data.get('email') as string
-    const name = data.get('name') as string
+    const password = data.get("password") as string;
+    const password2 = data.get("password") as string;
+    const email = data.get("email") as string;
+    const name = data.get("name") as string;
     if (password !== password2) {
       dispatch(createAlert("Passwords do not match", "danger"));
     } else {
-      console.log(name,email, password)
       dispatch(register({ name, email, password }));
     }
   };
@@ -41,16 +38,15 @@ export default function SignUp() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -108,10 +104,7 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              Already have an account?{' '}
-              <Link to={'/login'} >
-                Sign in
-              </Link>
+              Already have an account? <Link to={"/login"}>Sign in</Link>
             </Grid>
           </Grid>
         </Box>

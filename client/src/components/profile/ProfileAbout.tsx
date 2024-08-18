@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import React, { Fragment } from "react";
 import { ProfileType } from "../../types";
 
@@ -10,23 +11,22 @@ const ProfileAbout = ({
 }: {
   profile: ProfileType;
 }) => (
-  <div className="profile-about bg-light p-2">
+  <Box>
     {bio && (
-      <Fragment>
-        <h2 className="text-primary">{name.trim().split(" ")[0]}s Bio</h2>
-        <p>{bio}</p>
-        <div className="line" />
-      </Fragment>
+      <>
+        <Typography>{name.trim().split(" ")[0]}s Bio</Typography>
+        <Typography>{bio}</Typography>
+      </>
     )}
-    <h2 className="text-primary">Skill Set</h2>
-    <div className="skills">
+    <Typography>Skill Set</Typography>
+    <Box>
       {skills.map((skill, index) => (
-        <div key={index} className="p-1">
-          <i className="fas fa-check" /> {skill}
-        </div>
+        <Box>
+          <Typography>{skill}</Typography>
+        </Box>
       ))}
-    </div>
-  </div>
+    </Box>
+  </Box>
 );
 
 export default ProfileAbout;
