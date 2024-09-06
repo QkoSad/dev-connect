@@ -22,7 +22,7 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
+    null,
   );
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -73,7 +73,7 @@ const Navbar = () => {
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           {/*LOGO link for bi display*/}
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             sx={{
               mr: 2,
