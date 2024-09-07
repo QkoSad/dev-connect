@@ -121,6 +121,7 @@ export const addPost =
   (formData: { text: string }): AppThunk =>
   async (dispatch) => {
     try {
+      console.log(1);
       const res = await api.post("/posts", formData);
 
       dispatch(addPostAction(res.data));

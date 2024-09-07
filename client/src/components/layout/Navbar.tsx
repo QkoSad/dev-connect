@@ -127,7 +127,7 @@ const Navbar = () => {
               }}
             >
               {isAuthenticated ? (
-                <>
+                <div>
                   {" "}
                   {authLinks.map((el) => (
                     <MenuItem
@@ -149,7 +149,7 @@ const Navbar = () => {
                     </a>
                   </MenuItem>
                   ,
-                </>
+                </div>
               ) : (
                 guestLinks.map((el) => (
                   <MenuItem

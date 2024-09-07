@@ -28,7 +28,7 @@ const Profiles = () => {
               Browse and connect with developers
             </Typography>
             <Box>
-              {profiles.length > 0 ? (
+              {profiles.length > 0 && Array.isArray(profiles) ? (
                 profiles.map((profile) => (
                   <ProfileItem key={profile._id} profile={profile} />
                 ))

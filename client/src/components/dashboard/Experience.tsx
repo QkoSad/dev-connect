@@ -7,6 +7,7 @@ import { useAppDispatch } from "../../utils/hooks";
 
 const Experience = ({ experience }: { experience: ExperienceType[] }) => {
   const dispatch = useAppDispatch();
+  if (!experience) return <></>;
   const experiences = experience.map((exp) => (
     <tr key={exp._id}>
       <td>{exp.company}</td>
@@ -27,7 +28,9 @@ const Experience = ({ experience }: { experience: ExperienceType[] }) => {
 
   if (experiences.length === 0)
     return (
-      <Typography variant="h5">You have no experiences, consider adding some.</Typography>
+      <Typography variant="h5">
+        You have no experiences, consider adding some.
+      </Typography>
     );
 
   return (

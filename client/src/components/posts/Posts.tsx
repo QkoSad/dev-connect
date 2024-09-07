@@ -14,15 +14,20 @@ const Posts = () => {
     fetchData();
   }, [dispatch]);
   const posts = useAppSelector((state) => state.post.posts);
+  if (!posts) return <></>;
 
   return (
     <Container maxWidth="sm">
       <Typography variant="h3">Posts</Typography>
-      <Typography variant='h4'>Welcome to the community</Typography>
+      <Typography variant="h4">Welcome to the community</Typography>
       <PostForm />
-      {posts.map((post) => (
-        <PostItem key={post._id} post={post} />
-      ))}
+      <Box>
+        {posts.length > 0 && Array.isArray(posts) ? (
+          posts.map((post) => <PostItem key={post._id} post={post} />)
+        ) : (
+          <Typography>No posts found...</Typography>
+        )}
+      </Box>
     </Container>
   );
 };

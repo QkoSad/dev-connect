@@ -7,6 +7,7 @@ import { Box, Typography } from "@mui/material";
 
 const Education = ({ education }: { education: EducationType[] }) => {
   const dispatch = useAppDispatch();
+  if (!education) return <></>;
   const educations = education.map((edu) => (
     <tr key={edu._id}>
       <td>{edu.school}</td>
@@ -35,7 +36,7 @@ const Education = ({ education }: { education: EducationType[] }) => {
     );
   return (
     <>
-      <Typography variant='h5'>Education Credentials</Typography>
+      <Typography variant="h5">Education Credentials</Typography>
       <table className="table">
         <thead>
           <tr>

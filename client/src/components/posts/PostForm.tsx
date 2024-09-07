@@ -14,8 +14,9 @@ const PostForm = () => {
         display="flex"
         gap="1rem"
         noValidate
-        sx={{ mt: 3,mb:3 }}
+        sx={{ mt: 3, mb: 3 }}
         onSubmit={async (e) => {
+          console.log(1);
           e.preventDefault();
           await dispatch(addPost({ text }));
           setText("");
@@ -26,9 +27,9 @@ const PostForm = () => {
           label="Create a post"
           fullWidth
           value={text}
-          onChange={(e)=> setText(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
           multiline
-rows={3}
+          rows={3}
           required
         />
         <Button variant="contained">Submit</Button>
