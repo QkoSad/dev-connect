@@ -1,4 +1,11 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  List,
+  ListItemText,
+  Paper,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import { ProfileType } from "../../types";
@@ -15,8 +22,8 @@ const ProfileItem = ({
   profile: ProfileType;
 }) => {
   return (
-    <Paper>
-      <img src={avatar} alt="" className="round-img" />
+    <Paper sx={{ padding: "100px" }}>
+      <img src={avatar} alt="" />
       <Box>
         <Typography>{name}</Typography>
         <Typography>
@@ -27,13 +34,11 @@ const ProfileItem = ({
           View Profile
         </Button>
       </Box>
-      <ul>
+      <List>
         {skills.slice(0, 4).map((skill, index) => (
-          <li key={index} className="text-primary">
-            <i className="fas fa-check" /> {skill}
-          </li>
+          <ListItemText key={index}>{skill}</ListItemText>
         ))}
-      </ul>
+      </List>
     </Paper>
   );
 };

@@ -1,29 +1,36 @@
-import { Typography } from "@mui/material";
 import React from "react";
 import { deleteExperience } from "../../actions/profile";
 import { ExperienceType } from "../../types";
 import formatDate from "../../utils/formatDate";
 import { useAppDispatch } from "../../utils/hooks";
+import {
+  Box,
+  Button,
+  TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  Typography,
+} from "@mui/material";
 
 const Experience = ({ experience }: { experience: ExperienceType[] }) => {
   const dispatch = useAppDispatch();
   if (!experience) return <></>;
   const experiences = experience.map((exp) => (
-    <tr key={exp._id}>
-      <td>{exp.company}</td>
-      <td className="hide-sm">{exp.title}</td>
-      <td>
+    <TableRow key={exp._id}>
+      <TableCell>{exp.company}</TableCell>
+      <TableCell>{exp.title}</TableCell>
+      <TableCell>
         {formatDate(exp.from)} - {exp.to ? formatDate(exp.to) : "Now"}
-      </td>
-      <td>
-        <button
-          onClick={async () => dispatch(deleteExperience(exp._id))}
-          className="btn btn-danger"
-        >
+      </TableCell>
+      <TableCell>
+        <Button onClick={async () => dispatch(deleteExperience(exp._id))}>
           Delete
-        </button>
-      </td>
-    </tr>
+        </Button>
+      </TableCell>
+    </TableRow>
   ));
 
   if (experiences.length === 0)
@@ -34,20 +41,22 @@ const Experience = ({ experience }: { experience: ExperienceType[] }) => {
     );
 
   return (
-    <>
-      <h2 className="my-2">Experience Credentials</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th className="hide-sm">Title</th>
-            <th className="hide-sm">Years</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>{experiences}</tbody>
-      </table>
-    </>
+    <Box>
+      <Typography variant="h2">Experience Credentials</Typography>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Company</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Years</TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>{experiences}</TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
 

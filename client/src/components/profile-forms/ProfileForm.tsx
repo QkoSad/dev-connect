@@ -86,7 +86,6 @@ const ProfileForm = () => {
     const linkedin = data.get("linkedin") as string;
     const instagram = data.get("instagram") as string;
     const status = data.get("status") as string;
-    console.log(data);
     await dispatch(
       createProfile(
         {
@@ -105,13 +104,14 @@ const ProfileForm = () => {
         },
         editing,
       ),
-    ).then(() => {
+    ).then((res) => {
+      console.log(res);
       if (!editing) navigate("/dashboard");
     });
   };
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth="md">
       <Typography component="h1" variant="h4">
         {creatingProfile ? "Create Your Profile" : "Edit Your Profile"}
       </Typography>
@@ -128,7 +128,7 @@ const ProfileForm = () => {
           </Grid>
           <Grid item xs={6}>
             <Typography paddingY="1rem">
-              Could be your own company or onee you work for
+              Could be your own company or one you work for
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -152,7 +152,7 @@ const ProfileForm = () => {
           </Grid>
           <Grid item xs={6}>
             <Typography>
-              Please use comma separeted values(eg. HTML, CSS, JavaScript, PHP)
+              Please use comma separeted values (eg. HTML, CSS, JavaScript, PHP)
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -160,8 +160,8 @@ const ProfileForm = () => {
           </Grid>
           <Grid item xs={6}>
             <Typography>
-              If you want your latest reepos add a Github link, include your
-              username
+              If you want your latest repositories, add a Github link and
+              include your username
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -237,7 +237,7 @@ const ProfileForm = () => {
           ) : null}
           <Grid item xs={8}>
             <Button variant="contained" type="submit">
-              Sumbit query
+              Submit Changes
             </Button>
           </Grid>
           <Grid item xs={2}>

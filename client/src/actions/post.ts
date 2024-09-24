@@ -121,7 +121,6 @@ export const addPost =
   (formData: { text: string }): AppThunk =>
   async (dispatch) => {
     try {
-      console.log(1);
       const res = await api.post("/posts", formData);
 
       dispatch(addPostAction(res.data));
@@ -170,7 +169,6 @@ export const getPost =
       }
     }
   };
-// Add comment
 export const addComment =
   (postId: string, formData: { text: string }): AppThunk =>
   async (dispatch) => {
@@ -181,6 +179,7 @@ export const addComment =
 
       dispatch(createAlert("Comment Added", "success"));
     } catch (err: unknown) {
+      console.log(err);
       if (err instanceof AxiosError) {
         if (
           err !== undefined &&

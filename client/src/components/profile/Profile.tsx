@@ -37,11 +37,11 @@ const Profile = () => {
             auth.loading === false &&
             auth.user !== null &&
             auth.user._id === profile.user._id && (
-              <Button component={Link} to="/edit-profilee">
+              <Button component={Link} to="/edit-profile">
                 Edit Profile
               </Button>
             )}
-          <Paper elevation={9} sx={{width:'90%'}}>
+          <Paper elevation={9} sx={{ width: "90%" }}>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
             <Box>

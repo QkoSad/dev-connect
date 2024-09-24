@@ -1,20 +1,18 @@
 import mongoose from "mongoose";
-// import config from "config";
-const { MONGO_URL } = require("./config");
+import config from "config";
 
-// const db = config.get('mongoURI');
+const db = process.env.MONGO_URL
+  ? process.env.MONGO_URL
+  : config.get("mongoURI");
 
 const connectDB = async () => {
   try {
-    if (typeof MONGO_URL === "string") await mongoose.connect(MONGO_URL);
+    if (typeof db === "string") await mongoose.connect(db);
 
     console.log("MongoDB Connected...");
   } catch (err: unknown) {
     if (typeof err === "string") console.error(err);
-    else if (err instanceof Error) {
-      console.error(err.message);
-      console.log(MONGO_URL);
-    }
+    else if (err instanceof Error) console.error(err.message);
     process.exit(1);
   }
 };

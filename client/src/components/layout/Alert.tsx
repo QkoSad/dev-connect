@@ -1,15 +1,22 @@
-import React from "react";
+import { Box } from "@mui/material";
+import AlertMUI from "@mui/material/Alert";
 import { useAppSelector } from "../../utils/hooks";
 const Alert = () => {
   const alerts = useAppSelector((state) => state.alert);
   return (
-    <div className="alert-wrapper">
-      {alerts.map((alert) => (
-        <div key={alert.id} className={`alert alert-${alert.alertType}`}>
-          {alert.msg}
-        </div>
-      ))}
-    </div>
+    <Box sx={{ position: "fixed" }}>
+      {alerts.map((alert) =>
+        alert.alertType === "danger" ? (
+          <AlertMUI key={alert.id} severity="error">
+            {alert.msg}
+          </AlertMUI>
+        ) : (
+          <AlertMUI key={alert.id} severity="success">
+            {alert.msg}
+          </AlertMUI>
+        ),
+      )}
+    </Box>
   );
 };
 

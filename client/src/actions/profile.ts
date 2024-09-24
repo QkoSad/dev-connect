@@ -96,6 +96,7 @@ export const createProfile =
     try {
       const res = await api.post("/profile", formData);
 
+      console.log(res);
       dispatch(getProfile(res.data));
 
       dispatch(

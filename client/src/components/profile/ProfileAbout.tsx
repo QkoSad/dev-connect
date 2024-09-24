@@ -21,7 +21,7 @@ const ProfileAbout = ({
     <Typography>Skill Set</Typography>
     <Box>
       {skills.map((skill, index) => (
-        <Box>
+        <Box key={index}>
           <Typography>{skill}</Typography>
         </Box>
       ))}

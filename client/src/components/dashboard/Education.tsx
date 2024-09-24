@@ -3,27 +3,46 @@ import { deleteEducation } from "../../actions/profile";
 import formatDate from "../../utils/formatDate";
 import { EducationType } from "../../types";
 import { useAppDispatch } from "../../utils/hooks";
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  Typography,
+  TableContainer,
+} from "@mui/material";
 
 const Education = ({ education }: { education: EducationType[] }) => {
   const dispatch = useAppDispatch();
   if (!education) return <></>;
   const educations = education.map((edu) => (
-    <tr key={edu._id}>
-      <td>{edu.school}</td>
-      <td className="hide-sm">{edu.degree}</td>
-      <td>
+    <TableRow key={edu._id}>
+      <TableCell
+      // style={{
+      //   wordWrap: "break-word",
+      // }}
+      >
+        {edu.school}
+      </TableCell>
+      <TableCell
+      // style={{ wordWrap: "break-word" }}
+      >
+        {edu.degree}
+      </TableCell>
+      <TableCell
+      // style={{ wordWrap: "break-word" }}
+      >
         {formatDate(edu.from)} - {edu.to ? formatDate(edu.to) : "Now"}
-      </td>
-      <td>
-        <button
-          onClick={async () => await dispatch(deleteEducation(edu._id))}
-          className="btn btn-danger"
-        >
+      </TableCell>
+      <TableCell>
+        <Button onClick={async () => await dispatch(deleteEducation(edu._id))}>
           Delete
-        </button>
-      </td>
-    </tr>
+        </Button>
+      </TableCell>
+    </TableRow>
   ));
 
   if (education.length === 0)
@@ -35,20 +54,26 @@ const Education = ({ education }: { education: EducationType[] }) => {
       </Box>
     );
   return (
-    <>
-      <Typography variant="h5">Education Credentials</Typography>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>School</th>
-            <th className="hide-sm">Degree</th>
-            <th className="hide-sm">Years</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>{educations}</tbody>
-      </table>
-    </>
+    <Box>
+      <Typography variant="h2">Education Credentials</Typography>
+      <Table
+      // style={{
+      //   tableLayout: "fixed",
+      //   width: "50%",
+      //   alignSelf: "left",
+      // }}
+      >
+        <TableHead>
+          <TableRow>
+            <TableCell>School</TableCell>
+            <TableCell>Degree</TableCell>
+            <TableCell>Years</TableCell>
+            <TableCell />
+          </TableRow>
+        </TableHead>
+        <TableBody>{educations}</TableBody>
+      </Table>
+    </Box>
   );
 };
 

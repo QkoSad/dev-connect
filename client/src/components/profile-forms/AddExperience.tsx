@@ -48,7 +48,7 @@ const AddExperience = () => {
     }
   `;
   const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
@@ -70,37 +70,59 @@ const AddExperience = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           await dispatch(addExperience(formData)).then(() =>
-            navigate("/dashboard")
+            navigate("/dashboard"),
           );
         }}
       >
-        <TextField name="title" label="Job Title" fullWidth required />
-        <TextField name="company" label="Company" required />
-        <TextField name="location" label="Location" />
+        <TextField
+          name="title"
+          value={title}
+          label="Job Title"
+          onChange={onChange}
+          fullWidth
+          required
+        />
+        <TextField
+          onChange={onChange}
+          value={company}
+          name="company"
+          label="Company"
+          required
+        />
+        <TextField
+          onChange={onChange}
+          value={location}
+          name="location"
+          label="Location"
+        />
         <Typography variant="body1">From Date</Typography>
         <StyledInput type="date" name="from" value={from} onChange={onChange} />
-        <Typography>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={current}
-                onChange={() => setFormData({ ...formData, current: !current })}
-                inputProps={{ "aria-label": "controlled" }}
-              />
-            }
-            label="Current"
-          />
-        </Typography>
+        {/* <Typography> */}
+        {/*   <FormControlLabel */}
+        {/*     control={ */}
+        {/*       <Checkbox */}
+        {/*         checked={current} */}
+        {/*         onChange={() => setFormData({ ...formData, current: !current })} */}
+        {/*         inputProps={{ "aria-label": "controlled" }} */}
+        {/*       /> */}
+        {/*     } */}
+        {/*     label="Current" */}
+        {/*   /> */}
+        {/* </Typography> */}
         <Typography>To Date</Typography>
-        <StyledInput type="date" name="from" value={to} onChange={onChange} />
+        <StyledInput type="date" name="to" value={to} onChange={onChange} />
         <TextField
-          name="desc"
+          name="description"
           label="Job description"
           multiline
           rows={4}
           fullWidth
+          value={description}
+          onChange={onChange}
         />
-        <Button variant="contained">Sumbit Query</Button>
+        <Button variant="contained" type="submit">
+          Submit Changes
+        </Button>
       </Box>
       <Button component={Link} to="/dashboard">
         Go Back

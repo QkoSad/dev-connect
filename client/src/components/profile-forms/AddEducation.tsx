@@ -49,7 +49,7 @@ const AddEducation = () => {
     formData;
 
   const onChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => setFormData({ ...formData, [event.target.name]: event.target.value });
 
   return (
@@ -71,7 +71,7 @@ const AddEducation = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           await dispatch(addEducation(formData)).then(() =>
-            navigate("/dashboard")
+            navigate("/dashboard"),
           );
         }}
       >
@@ -79,34 +79,52 @@ const AddEducation = () => {
           name="school"
           label="School or Bootcamp"
           fullWidth
+          value={school}
+          onChange={onChange}
           autoFocus
         />
-        <TextField name="degree" label="Gegree or Certificate" fullWidth />
-        <TextField name="fieldofstudy" label="Field of Study" fullWidth />
+        <TextField
+          value={degree}
+          onChange={onChange}
+          name="degree"
+          label="Gegree or Certificate"
+          fullWidth
+        />
+        <TextField
+          value={fieldofstudy}
+          onChange={onChange}
+          name="fieldofstudy"
+          label="Field of Study"
+          fullWidth
+        />
         <Typography variant="body1">From Date</Typography>
         <StyledInput type="date" name="from" value={from} onChange={onChange} />
-        <Typography>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={current}
-                onChange={() => setFormData({ ...formData, current: !current })}
-                inputProps={{ "aria-label": "controlled" }}
-              />
-            }
-            label="Current"
-          />
-        </Typography>
+        {/*   <Typography> */}
+        {/*   <FormControlLabel */}
+        {/*     control={ */}
+        {/*       <Checkbox */}
+        {/*         checked={current} */}
+        {/*         onChange={() => setFormData({ ...formData, current: !current })} */}
+        {/*         inputProps={{ "aria-label": "controlled" }} */}
+        {/*       /> */}
+        {/*     } */}
+        {/*     label="Current" */}
+        {/*   /> */}
+        {/* </Typography> */}
         <Typography>To Date</Typography>
-        <StyledInput type="date" name="from" value={to} onChange={onChange} />
+        <StyledInput type="date" name="to" value={to} onChange={onChange} />
         <TextField
-          name="desc"
+          name="description"
+          value={description}
+          onChange={onChange}
           label="Program description"
           multiline
           rows={4}
           fullWidth
         />
-        <Button variant="contained">Sumbit Query</Button>
+        <Button variant="contained" type="submit">
+          Submit Changes
+        </Button>
       </Box>
       <Button component={Link} to="/dashboard">
         Go Back

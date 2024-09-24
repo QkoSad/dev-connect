@@ -34,18 +34,14 @@ const CommentItem = ({
           title={<Link to={`/profile/${user}`}>{name}</Link>}
           subheader={formatDate(date)}
         />
+        {!auth.loading && auth.user !== null && user === auth.user._id && (
+          <Button onClick={() => dispatch(deleteComment(postId, _id))}>
+            <DeleteIcon />
+          </Button>
+        )}
         <CardContent>
           <Typography variant="subtitle1">{text}</Typography>
         </CardContent>
-        <Box display={"inline"}>
-          {!auth.loading && auth.user !== null && user === auth.user._id && (
-            <Button
-              onClick={async () => await dispatch(deleteComment(postId, _id))}
-            >
-              <DeleteIcon />
-            </Button>
-          )}
-        </Box>
       </Card>
     </Container>
   );

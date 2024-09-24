@@ -6,8 +6,9 @@ import { useAppDispatch } from "../../utils/hooks";
 const PostForm = () => {
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
+  const handleSumbit = {};
   return (
-    <Box>
+    <Container>
       <Typography>Say Something...</Typography>
       <Box
         component="form"
@@ -15,10 +16,9 @@ const PostForm = () => {
         gap="1rem"
         noValidate
         sx={{ mt: 3, mb: 3 }}
-        onSubmit={async (e) => {
-          console.log(1);
+        onSubmit={(e) => {
           e.preventDefault();
-          await dispatch(addPost({ text }));
+          dispatch(addPost({ text }));
           setText("");
         }}
       >
@@ -32,9 +32,11 @@ const PostForm = () => {
           rows={3}
           required
         />
-        <Button variant="contained">Submit</Button>
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

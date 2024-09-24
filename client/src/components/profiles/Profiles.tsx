@@ -27,7 +27,7 @@ const Profiles = () => {
             <Typography variant="h6">
               Browse and connect with developers
             </Typography>
-            <Box>
+            <Box display="flex" flexDirection="row">
               {profiles.length > 0 && Array.isArray(profiles) ? (
                 profiles.map((profile) => (
                   <ProfileItem key={profile._id} profile={profile} />

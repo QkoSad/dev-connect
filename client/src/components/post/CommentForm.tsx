@@ -16,9 +16,9 @@ const CommentForm = ({ postId }: { postId: string }) => {
         flexDirection="column"
         alignItems="left"
         gap="1rem"
-        onSubmit={async (e) => {
+        onSubmit={(e) => {
           e.preventDefault();
-          await dispatch(addComment(postId, { text }));
+          dispatch(addComment(postId, { text }));
           setText("");
         }}
       >
@@ -31,7 +31,7 @@ const CommentForm = ({ postId }: { postId: string }) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <Button>Submit</Button>
+        <Button type="submit">Submit</Button>
       </Box>
     </Container>
   );

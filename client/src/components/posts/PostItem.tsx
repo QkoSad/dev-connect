@@ -6,13 +6,14 @@ import { Post } from "../../types";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import {
   Avatar,
-  Box,
   Button,
   Card,
   CardContent,
   CardHeader,
-  CardMedia,
   Container,
+  Table,
+  TableCell,
+  TableRow,
   Typography,
 } from "@mui/material";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
@@ -38,28 +39,42 @@ const PostItem = ({
           <Typography variant="subtitle1">{text}</Typography>
         </CardContent>
       </Card>
-      <Box>
-        <Button onClick={async () => await dispatch(addLike(_id))}>
-          <ThumbUpIcon />
-        </Button>
-        <Typography display="inline-flex" variant="button">
-          {likes.length}
-        </Typography>
-        <Button onClick={async () => await dispatch(removeLike(_id))}>
-          <ThumbDownIcon />
-        </Button>
-        <Button component={Link} to={`/posts/${_id}`}>
-          <Typography>Comments </Typography>
-        </Button>
-        <Typography display="inline-flex" variant="button">
-          {comments.length}
-        </Typography>
-        {!auth.loading && auth.user !== null && user === auth.user._id && (
-          <Button onClick={async () => await dispatch(deletePost(_id))}>
-            <DeleteIcon />
-          </Button>
-        )}
-      </Box>
+      <Table>
+        <TableRow>
+          <TableCell>
+            <Button onClick={async () => await dispatch(addLike(_id))}>
+              <ThumbUpIcon />
+            </Button>
+          </TableCell>
+          <TableCell>
+            <Typography display="inline-flex" variant="button">
+              {likes.length}
+            </Typography>
+          </TableCell>
+          <TableCell>
+            <Button onClick={async () => await dispatch(removeLike(_id))}>
+              <ThumbDownIcon />
+            </Button>
+          </TableCell>
+          <TableCell>
+            <Button component={Link} to={`/posts/${_id}`}>
+              <Typography>Comments </Typography>
+            </Button>
+          </TableCell>
+          <TableCell>
+            <Typography display="inline-flex" variant="button">
+              {comments.length}
+            </Typography>
+          </TableCell>
+          <TableCell>
+            {!auth.loading && auth.user !== null && user === auth.user._id && (
+              <Button onClick={async () => await dispatch(deletePost(_id))}>
+                <DeleteIcon />
+              </Button>
+            )}
+          </TableCell>
+        </TableRow>
+      </Table>
     </Container>
   );
 };
