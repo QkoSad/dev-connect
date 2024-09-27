@@ -17,28 +17,33 @@ const Profiles = () => {
 
   const { profiles, loading } = useAppSelector((state) => state.profile);
   return (
-    <Container maxWidth="sm">
-      <Box display="flex" flexDirection="column" alignItems="center">
-        {loading ? (
-          <Spinner />
-        ) : (
-          <>
-            <Typography variant="h2">Developers</Typography>
-            <Typography variant="h6">
-              Browse and connect with developers
-            </Typography>
-            <Box display="flex" flexDirection="row">
-              {profiles.length > 0 && Array.isArray(profiles) ? (
-                profiles.map((profile) => (
-                  <ProfileItem key={profile._id} profile={profile} />
-                ))
-              ) : (
-                <Typography>No profiles found...</Typography>
-              )}
-            </Box>
-          </>
-        )}
-      </Box>
+    <Container>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Typography variant="h2">Developers</Typography>
+          <Typography variant="h6">
+            Browse and connect with developers
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "left",
+              gap: "10px",
+              flexWrap: "wrap",
+            }}
+          >
+            {profiles.length > 0 && Array.isArray(profiles) ? (
+              profiles.map((profile) => (
+                <ProfileItem key={profile._id} profile={profile} />
+              ))
+            ) : (
+              <Typography>No profiles found...</Typography>
+            )}
+          </Box>
+        </>
+      )}
     </Container>
   );
 };

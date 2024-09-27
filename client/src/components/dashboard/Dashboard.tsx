@@ -6,6 +6,7 @@ import Experience from "./Experience";
 import Education from "./Education";
 import { getCurrentProfile, deleteAccount } from "../../actions/profile";
 import { Box, Button, Typography } from "@mui/material";
+import { compose } from "redux";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -19,13 +20,14 @@ const Dashboard = () => {
   const profile = useAppSelector((state) => state.profile.profile);
   return (
     <Box
-      component="main"
-      justifyContent="center"
-      flexDirection="column"
-      minHeight="50vh"
-      display="flex"
-      alignItems="center"
-      gap="1rem"
+      sx={{
+        justifyContent: "center",
+        flexDirection: "column",
+        minHeight: "50vh",
+        display: "flex",
+        alignItems: "center",
+        gap: "1rem",
+      }}
     >
       <Typography variant="h3" component="h2">
         Dashboard{" "}
@@ -38,7 +40,7 @@ const Dashboard = () => {
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
-          <Box sx={{ marginTop: "10vh" }}>
+          <Box sx={{ marginTop: "2vh" }}>
             <Button
               variant="contained"
               color="error"

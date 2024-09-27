@@ -148,7 +148,6 @@ const Navbar = () => {
                       Logout
                     </a>
                   </MenuItem>
-                  ,
                 </div>
               ) : (
                 guestLinks.map((el) => (

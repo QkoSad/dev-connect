@@ -1,15 +1,8 @@
 import styled from "@emotion/styled";
-import {
-  Button,
-  Box,
-  Container,
-  TextField,
-  Typography,
-  Checkbox,
-  FormControlLabel,
-} from "@mui/material";
+import { Button, Box, Container, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { createAlert } from "../../actions/alert";
 import { addEducation } from "../../actions/profile";
 import { useAppDispatch } from "../../utils/hooks";
 
@@ -51,6 +44,21 @@ const AddEducation = () => {
   const onChange = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => setFormData({ ...formData, [event.target.name]: event.target.value });
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (formData.degree.length > 50) {
+      dispatch(createAlert("Degree is longer 50 characters", "danger"));
+    } else if (formData.fieldofstudy.length > 50) {
+      dispatch(createAlert("Field of study is longer 50 characters", "danger"));
+    } else if (formData.description.length > 250) {
+      dispatch(
+        createAlert("Description name is longer 250 characters", "danger"),
+      );
+    } else if (formData.school.length > 50) {
+      dispatch(createAlert("School name is longer 50 characters", "danger"));
+    } else
+      await dispatch(addEducation(formData)).then(() => navigate("/dashboard"));
+  };
 
   return (
     <Container maxWidth="sm">
@@ -68,12 +76,7 @@ const AddEducation = () => {
         noValidate
         maxWidth="500px"
         sx={{ mt: 3 }}
-        onSubmit={async (e) => {
-          e.preventDefault();
-          await dispatch(addEducation(formData)).then(() =>
-            navigate("/dashboard"),
-          );
-        }}
+        onSubmit={onSubmit}
       >
         <TextField
           name="school"

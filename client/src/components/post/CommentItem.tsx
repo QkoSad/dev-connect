@@ -40,7 +40,12 @@ const CommentItem = ({
           </Button>
         )}
         <CardContent>
-          <Typography variant="subtitle1">{text}</Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{ textWrap: "wrap", wordBreak: "break-word" }}
+          >
+            {text}
+          </Typography>
         </CardContent>
       </Card>
     </Container>

@@ -7,7 +7,7 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -54,7 +54,7 @@ export default function SignUp() {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 name="name"
                 required
@@ -64,7 +64,7 @@ export default function SignUp() {
                 autoFocus
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 required
                 fullWidth
@@ -73,7 +73,7 @@ export default function SignUp() {
                 name="email"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 required
                 fullWidth
@@ -83,7 +83,7 @@ export default function SignUp() {
                 id="password"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 required
                 fullWidth
@@ -103,7 +103,7 @@ export default function SignUp() {
             Sign Up
           </Button>
           <Grid container justifyContent="flex-end">
-            <Grid item>
+            <Grid>
               Already have an account? <Link to={"/login"}>Sign in</Link>
             </Grid>
           </Grid>

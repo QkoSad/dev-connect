@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 
 const DashboardActions = () => {
   return (
-    <Box>
+    <Box
+      sx={{
+        display: { xs: "grid", md: "flex" },
+        rowGap: { xs: "5px" },
+      }}
+    >
       <Button
         component={Link}
         to="/edit-profile"

@@ -22,18 +22,21 @@ const ProfileItem = ({
   profile: ProfileType;
 }) => {
   return (
-    <Paper sx={{ padding: "100px" }}>
+    <Paper sx={{ width: "250px", paddingX: "10px" }}>
       <img src={avatar} alt="" />
-      <Box>
-        <Typography>{name}</Typography>
-        <Typography>
-          {status} {company && <span> at {company}</span>}
-        </Typography>
-        <Typography>{location && <span>{location}</span>}</Typography>
-        <Button component={Link} to={`/profile/${_id}`}>
-          View Profile
-        </Button>
-      </Box>
+      <Typography color="info">
+        <b>{name}</b>
+      </Typography>
+      <Typography>
+        {status} {company && <span> at {company}</span>}
+      </Typography>
+      <Typography>{location && <span>{location}</span>}</Typography>
+      <Button component={Link} to={`/profile/${_id}`} variant="outlined">
+        View Profile
+      </Button>
+      <Typography color="info">
+        <b>Skills:</b>
+      </Typography>
       <List>
         {skills.slice(0, 4).map((skill, index) => (
           <ListItemText key={index}>{skill}</ListItemText>

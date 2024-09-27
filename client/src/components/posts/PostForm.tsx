@@ -1,12 +1,12 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { createAlert } from "../../actions/alert";
 import { addPost } from "../../actions/post";
 import { useAppDispatch } from "../../utils/hooks";
 
 const PostForm = () => {
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
-  const handleSumbit = {};
   return (
     <Container>
       <Typography>Say Something...</Typography>
@@ -18,8 +18,12 @@ const PostForm = () => {
         sx={{ mt: 3, mb: 3 }}
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(addPost({ text }));
-          setText("");
+          if (text.length > 250) {
+            dispatch(createAlert("Post longer than 250 characters", "danger"));
+          } else {
+            dispatch(addPost({ text }));
+            setText("");
+          }
         }}
       >
         <TextField
@@ -27,7 +31,9 @@ const PostForm = () => {
           label="Create a post"
           fullWidth
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => {
+            return setText(e.target.value);
+          }}
           multiline
           rows={3}
           required

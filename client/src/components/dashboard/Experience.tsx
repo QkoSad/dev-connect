@@ -20,9 +20,28 @@ const Experience = ({ experience }: { experience: ExperienceType[] }) => {
   if (!experience) return <></>;
   const experiences = experience.map((exp) => (
     <TableRow key={exp._id}>
-      <TableCell>{exp.company}</TableCell>
-      <TableCell>{exp.title}</TableCell>
-      <TableCell>
+      <TableCell
+        sx={{
+          textWrap: "wrap",
+          wordBreak: "break-word",
+        }}
+      >
+        {exp.company}
+      </TableCell>
+      <TableCell
+        sx={{
+          textWrap: "wrap",
+          wordBreak: "break-word",
+        }}
+      >
+        {exp.title}
+      </TableCell>
+      <TableCell
+        sx={{
+          textWrap: "wrap",
+          wordBreak: "break-word",
+        }}
+      >
         {formatDate(exp.from)} - {exp.to ? formatDate(exp.to) : "Now"}
       </TableCell>
       <TableCell>

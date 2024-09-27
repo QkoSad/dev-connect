@@ -1,3 +1,4 @@
+import { BorderAll } from "@mui/icons-material";
 import { Avatar, Box, Card, CardHeader, Typography } from "@mui/material";
 import React from "react";
 import { ProfileType } from "../../types";
@@ -14,19 +15,18 @@ const ProfileTop = ({
 }: {
   profile: ProfileType;
 }) => {
-  console.log(avatar)
   return (
     <>
-      <img className="round-img my-1" src={avatar} alt="" />
-      <Typography variant="h1">{name}</Typography>
-      <Typography>
+      <img src={avatar} alt="" />
+      <Typography variant="h2">{name}</Typography>
+      <Typography sx={{ textWrap: "wrap" }}>
         {status} {company ? <span> at {company}</span> : null}
       </Typography>
-      <Typography>{location ? <span>{location}</span> : null}</Typography>
+      {location ? <Typography>{location}</Typography> : null}
       <Box>
         {website ? (
           <a href={website} target="_blank" rel="noopener noreferrer">
-            <i className="fas fa-globe fa-2x" />
+            <i>{website}</i>
           </a>
         ) : null}
         {social
@@ -38,8 +38,9 @@ const ProfileTop = ({
                   href={value}
                   target="_blank"
                   rel="noopener noreferrer"
+                  style={{ display: "block" }}
                 >
-                  <i className={`fab fa-${key} fa-2x`}></i>
+                  <i>{value}</i>
                 </a>
               ))
           : null}

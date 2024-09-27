@@ -21,19 +21,26 @@ const Education = ({ education }: { education: EducationType[] }) => {
   const educations = education.map((edu) => (
     <TableRow key={edu._id}>
       <TableCell
-      // style={{
-      //   wordWrap: "break-word",
-      // }}
+        sx={{
+          textWrap: "wrap",
+          wordBreak: "break-word",
+        }}
       >
         {edu.school}
       </TableCell>
       <TableCell
-      // style={{ wordWrap: "break-word" }}
+        sx={{
+          textWrap: "wrap",
+          wordBreak: "break-word",
+        }}
       >
         {edu.degree}
       </TableCell>
       <TableCell
-      // style={{ wordWrap: "break-word" }}
+        sx={{
+          textWrap: "wrap",
+          wordBreak: "break-word",
+        }}
       >
         {formatDate(edu.from)} - {edu.to ? formatDate(edu.to) : "Now"}
       </TableCell>
@@ -56,13 +63,7 @@ const Education = ({ education }: { education: EducationType[] }) => {
   return (
     <Box>
       <Typography variant="h2">Education Credentials</Typography>
-      <Table
-      // style={{
-      //   tableLayout: "fixed",
-      //   width: "50%",
-      //   alignSelf: "left",
-      // }}
-      >
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell>School</TableCell>

@@ -10,6 +10,7 @@ import {
 import { Container } from "@mui/system";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { createAlert } from "../../actions/alert";
 import { addExperience } from "../../actions/profile";
 import { useAppDispatch } from "../../utils/hooks";
 
@@ -69,9 +70,30 @@ const AddExperience = () => {
         sx={{ mt: 3 }}
         onSubmit={async (e) => {
           e.preventDefault();
-          await dispatch(addExperience(formData)).then(() =>
-            navigate("/dashboard"),
-          );
+          if (formData.description.length > 250) {
+            dispatch(
+              createAlert("Job description is longer 250 characters", "danger"),
+            );
+          } else if (formData.location.length > 50) {
+            dispatch(
+              createAlert("Location is longer than 50 characters", "danger"),
+            );
+          } else if (formData.title.length > 50) {
+            dispatch(
+              createAlert("Job title is longer than 50 characters", "danger"),
+            );
+          } else if (formData.company.length > 50) {
+            dispatch(
+              createAlert(
+                "Company name is longer than 50 characters",
+                "danger",
+              ),
+            );
+          } else {
+            await dispatch(addExperience(formData)).then(() =>
+              navigate("/dashboard"),
+            );
+          }
         }}
       >
         <TextField

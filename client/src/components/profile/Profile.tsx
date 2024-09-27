@@ -9,7 +9,8 @@ import ProfileGithub from "./ProfileGithub";
 import { getProfileById } from "../../actions/profile";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { EducationType, ExperienceType } from "../../types";
-import { Box, Button, Card, Paper, Typography } from "@mui/material";
+import { Box, Button, Card, Container, Paper, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
 const Profile = () => {
   const profile = useAppSelector((state) => state.profile.profile);
@@ -25,26 +26,54 @@ const Profile = () => {
   }, [dispatch, id]);
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
+    <>
       {profile === null ? (
         <Spinner />
       ) : (
-        <>
-          <Button component={Link} to="/profiles">
-            Back To Profiles
-          </Button>
-          {auth.isAuthenticated &&
-            auth.loading === false &&
-            auth.user !== null &&
-            auth.user._id === profile.user._id && (
-              <Button component={Link} to="/edit-profile">
-                Edit Profile
-              </Button>
-            )}
-          <Paper elevation={9} sx={{ width: "90%" }}>
-            <ProfileTop profile={profile} />
-            <ProfileAbout profile={profile} />
-            <Box>
+        <Paper sx={{ display: "grid", justifyItems: "center", marginY: "5px" }}>
+          <div>
+            <Button
+              variant="contained"
+              component={Link}
+              to="/profiles"
+              sx={{
+                width: "70px",
+                margin: "5px",
+              }}
+            >
+              Back
+            </Button>
+            {auth.isAuthenticated &&
+              auth.loading === false &&
+              auth.user !== null &&
+              auth.user._id === profile.user._id && (
+                <Button
+                  component={Link}
+                  to="/edit-profile"
+                  variant="outlined"
+                  sx={{
+                    width: "70px",
+                  }}
+                >
+                  Edit
+                </Button>
+              )}
+          </div>
+          <Grid
+            container
+            spacing={2}
+            rowSpacing={"30px"}
+            sx={{
+              marginX: "20%",
+            }}
+          >
+            <Grid size={{ sm: 12, lg: 4 }}>
+              <ProfileTop profile={profile} />
+            </Grid>
+            <Grid size={{ sm: 12, lg: 8 }}>
+              <ProfileAbout profile={profile} />
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="h2">Experience</Typography>
               {profile.experience.length > 0 ? (
                 <>
@@ -58,8 +87,8 @@ const Profile = () => {
               ) : (
                 <Typography variant="h4">No experience credentials</Typography>
               )}
-            </Box>
-            <Box>
+            </Grid>
+            <Grid size={6}>
               <Typography variant="h2">Education</Typography>
               {profile.education.length > 0 ? (
                 <>
@@ -73,14 +102,14 @@ const Profile = () => {
               ) : (
                 <Typography variant="h4">No education credentials</Typography>
               )}
-            </Box>
+            </Grid>
             {profile.githubusername && (
               <ProfileGithub username={profile.githubusername} />
             )}
-          </Paper>
-        </>
+          </Grid>
+        </Paper>
       )}
-    </Box>
+    </>
   );
 };
 

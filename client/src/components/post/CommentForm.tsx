@@ -1,5 +1,6 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { createAlert } from "../../actions/alert";
 import { addComment } from "../../actions/post";
 import { useAppDispatch } from "../../utils/hooks";
 
@@ -18,8 +19,14 @@ const CommentForm = ({ postId }: { postId: string }) => {
         gap="1rem"
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(addComment(postId, { text }));
-          setText("");
+          if (text.length > 250) {
+            dispatch(
+              createAlert("Comment longer than 250 characters", "danger"),
+            );
+          } else {
+            dispatch(addComment(postId, { text }));
+            setText("");
+          }
         }}
       >
         <TextField

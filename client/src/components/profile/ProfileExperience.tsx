@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import React from "react";
 import { ExperienceType } from "../../types";
 import formatDate from "../../utils/formatDate";
@@ -8,15 +8,43 @@ const ProfileExperience = ({
 }: {
   experience: ExperienceType;
 }) => (
-  <Box>
-    <Typography variant="h3">{company}</Typography>
+  <Paper elevation={12} sx={{ margin: "10px", padding: "4px" }}>
+    <Typography
+      sx={{
+        textWrap: "wrap",
+        wordBreak: "break-word",
+      }}
+    >
+      <b>{company}</b>
+    </Typography>
     <Typography>
       {formatDate(from)} - {to ? formatDate(to) : "Now"}
     </Typography>
-    <Typography>Position: {title}</Typography>
-    <Typography>Location: {location}</Typography>
-    <Typography>Description: {description}</Typography>
-  </Box>
+    <Typography
+      sx={{
+        textWrap: "wrap",
+        wordBreak: "break-word",
+      }}
+    >
+      <b>Position:</b> {title}
+    </Typography>
+    <Typography
+      sx={{
+        textWrap: "wrap",
+        wordBreak: "break-word",
+      }}
+    >
+      <b>Location:</b> {location}
+    </Typography>
+    <Typography
+      sx={{
+        textWrap: "wrap",
+        wordBreak: "break-word",
+      }}
+    >
+      <b>Description:</b> {description}
+    </Typography>
+  </Paper>
 );
 
 export default ProfileExperience;

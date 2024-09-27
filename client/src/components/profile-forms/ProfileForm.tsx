@@ -2,16 +2,16 @@ import {
   Button,
   Box,
   Container,
-  CssBaseline,
-  Grid,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { Fragment, useState, useEffect } from "react";
+import Grid from "@mui/material/Grid2";
+import React, { useState, useEffect } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
+import { createAlert } from "../../actions/alert";
 import { createProfile, getCurrentProfile } from "../../actions/profile";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
@@ -86,28 +86,52 @@ const ProfileForm = () => {
     const linkedin = data.get("linkedin") as string;
     const instagram = data.get("instagram") as string;
     const status = data.get("status") as string;
-    await dispatch(
-      createProfile(
-        {
-          website,
-          location,
-          skills,
-          githubusername,
-          company,
-          bio,
-          twitter,
-          facebook,
-          youtube,
-          linkedin,
-          instagram,
-          status,
-        },
-        editing,
-      ),
-    ).then((res) => {
-      console.log(res);
-      if (!editing) navigate("/dashboard");
-    });
+    if (facebook?.length > 100) {
+      dispatch(createAlert("Facebook link is longer 100 characters", "danger"));
+    } else if (linkedin?.length > 100) {
+      dispatch(createAlert("LinkedIn link is longer 100 characters", "danger"));
+    } else if (youtube?.length > 100) {
+      dispatch(createAlert("Youtube link is longer 100 characters", "danger"));
+    } else if (instagram?.length > 100) {
+      dispatch(
+        createAlert("Instagram link is longer 100 characters", "danger"),
+      );
+    } else if (website?.length > 100) {
+      dispatch(createAlert("Website link is longer 100 characters", "danger"));
+    } else if (skills.length > 100) {
+      dispatch(createAlert("Skills is longer 100 characters", "danger"));
+    } else if (location?.length > 50) {
+      dispatch(createAlert("Location is longer 100 characters", "danger"));
+    } else if (githubusername?.length > 50) {
+      dispatch(
+        createAlert("Github username is longer 50 characters", "danger"),
+      );
+    } else if (company?.length > 50) {
+      dispatch(createAlert("Company name is longer 50 characters", "danger"));
+    } else if (bio?.length > 250) {
+      dispatch(createAlert("Bio name is longer 250 characters", "danger"));
+    } else
+      await dispatch(
+        createProfile(
+          {
+            website,
+            location,
+            skills,
+            githubusername,
+            company,
+            bio,
+            twitter,
+            facebook,
+            youtube,
+            linkedin,
+            instagram,
+            status,
+          },
+          editing,
+        ),
+      ).then(() => {
+        if (!editing) navigate("/dashboard");
+      });
   };
 
   return (
@@ -123,48 +147,48 @@ const ProfileForm = () => {
       <Typography variant="body2">* = required field</Typography>
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <TextField name="company" fullWidth label="Company" autoFocus />
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <Typography paddingY="1rem">
               Could be your own company or one you work for
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <TextField name="website" fullWidth label="Website" />
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <Typography paddingY="1rem">
               Could be your own a or a company website
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <TextField name="location" fullWidth label="Location" />
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <Typography paddingY="1rem">
               City & state suggest(eg. Boston MA)
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <TextField name="skills" required fullWidth label="Skills" />
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <Typography>
               Please use comma separeted values (eg. HTML, CSS, JavaScript, PHP)
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <TextField name="githubUser" fullWidth label="Github Username" />
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <Typography>
               If you want your latest repositories, add a Github link and
               include your username
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <InputLabel id="status">Status *</InputLabel>
             <Select
               fullWidth
@@ -187,15 +211,15 @@ const ProfileForm = () => {
               <MenuItem value="Other">Other</MenuItem>
             </Select>
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <Typography paddingTop="2.3rem">
               Select Profesional Status
             </Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Typography>Tell us a little about yourself</Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <TextField
               name="bio"
               multiline
@@ -204,7 +228,7 @@ const ProfileForm = () => {
               label="A short bio of yourself"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Button
               variant="contained"
               onClick={() => toggleSocialInputs(!displaySocialInputs)}
@@ -214,33 +238,33 @@ const ProfileForm = () => {
           </Grid>
           {displaySocialInputs ? (
             <>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6 }}>
                 <TextField fullWidth name="twitter" label="Twitter URL" />
               </Grid>
-              <Grid item xs={6}></Grid>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6 }}></Grid>
+              <Grid size={{ xs: 6 }}>
                 <TextField fullWidth name="facebook" label="FaceBook URL" />
               </Grid>
-              <Grid item xs={6}></Grid>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6 }}></Grid>
+              <Grid size={{ xs: 6 }}>
                 <TextField fullWidth name="youtube" label="YouTube URL" />
               </Grid>
-              <Grid item xs={6}></Grid>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6 }}></Grid>
+              <Grid size={{ xs: 6 }}>
                 <TextField fullWidth name="linkedin" label="Linkedin URL" />
               </Grid>
-              <Grid item xs={6}></Grid>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6 }}></Grid>
+              <Grid size={{ xs: 6 }}>
                 <TextField fullWidth name="instagram" label="Instagram URL" />
               </Grid>
             </>
           ) : null}
-          <Grid item xs={8}>
+          <Grid size={{ xs: 8 }}>
             <Button variant="contained" type="submit">
               Submit Changes
             </Button>
           </Grid>
-          <Grid item xs={2}>
+          <Grid size={{ xs: 2 }}>
             <Button variant="outlined">
               <Link
                 style={{ color: "inherit", textDecoration: "none" }}

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, List, ListItem, Typography } from "@mui/material";
 import React, { Fragment } from "react";
 import { ProfileType } from "../../types";
 
@@ -11,21 +11,32 @@ const ProfileAbout = ({
 }: {
   profile: ProfileType;
 }) => (
-  <Box>
+  <Box sx={{ textWrap: "wrap", maxWidth: "100%" }}>
     {bio && (
       <>
-        <Typography>{name.trim().split(" ")[0]}s Bio</Typography>
-        <Typography>{bio}</Typography>
+        <Typography color="info" variant="h5">
+          <b>{name.trim().split(" ")[0]}'s Bio</b>
+        </Typography>
+        <Typography
+          sx={{
+            textWrap: "wrap",
+            wordBreak: "break-word",
+          }}
+        >
+          {bio}
+        </Typography>
       </>
     )}
-    <Typography>Skill Set</Typography>
-    <Box>
+    <Typography color="info" variant="h5">
+      <b>Skill Set</b>
+    </Typography>
+    <List>
       {skills.map((skill, index) => (
-        <Box key={index}>
+        <ListItem key={index}>
           <Typography>{skill}</Typography>
-        </Box>
+        </ListItem>
       ))}
-    </Box>
+    </List>
   </Box>
 );
 
