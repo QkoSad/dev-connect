@@ -1,8 +1,12 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../utils/hooks";
 
 const DashboardActions = () => {
+  const { profile }: { profile: any } = useAppSelector(
+    (state) => state.profile,
+  );
   return (
     <Box
       sx={{
@@ -33,6 +37,14 @@ const DashboardActions = () => {
         sx={{ marginX: "1rem" }}
       >
         Add Education
+      </Button>
+      <Button
+        sx={{ marginX: "1rem" }}
+        component={Link}
+        to={`/profile/${profile.user._id}`}
+        variant="outlined"
+      >
+        View Profile
       </Button>
     </Box>
   );

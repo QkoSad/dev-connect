@@ -33,9 +33,10 @@ const initialState = {
 const ProfileForm = () => {
   const dispatch = useAppDispatch();
 
+  const [formData, setFormData] = useState(initialState);
+
   const { profile, loading }: { profile: any; loading: boolean } =
     useAppSelector((state) => state.profile);
-  const [formData, setFormData] = useState(initialState);
 
   const creatingProfile = useMatch("/create-profile");
 
@@ -69,23 +70,28 @@ const ProfileForm = () => {
     }
   }, [loading, dispatch, profile]);
 
+  const {
+    website,
+    location,
+    skills,
+    githubusername,
+    company,
+    bio,
+    twitter,
+    facebook,
+    youtube,
+    linkedin,
+    instagram,
+    status,
+  } = formData;
+
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const editing = profile ? true : false;
     e.preventDefault();
-
-    const data = new FormData(e.currentTarget);
-    const website = data.get("website") as string;
-    const location = data.get("location") as string;
-    const skills = data.get("skills") as string;
-    const githubusername = data.get("githubUser") as string;
-    const company = data.get("company") as string;
-    const bio = data.get("bio") as string;
-    const twitter = data.get("twitter") as string;
-    const facebook = data.get("facebook") as string;
-    const youtube = data.get("youtube") as string;
-    const linkedin = data.get("linkedin") as string;
-    const instagram = data.get("instagram") as string;
-    const status = data.get("status") as string;
     if (facebook?.length > 100) {
       dispatch(createAlert("Facebook link is longer 100 characters", "danger"));
     } else if (linkedin?.length > 100) {
@@ -100,7 +106,11 @@ const ProfileForm = () => {
       dispatch(createAlert("Website link is longer 100 characters", "danger"));
     } else if (skills.length > 100) {
       dispatch(createAlert("Skills is longer 100 characters", "danger"));
-    } else if (location?.length > 50) {
+    } else if (skills.length === 0) {
+      dispatch(createAlert("Skills is required", "danger"));
+    } else if (skills.length > 100 || skills.length === 0) {
+      dispatch(createAlert("Status is required", "danger"));
+    } else if (status?.length === 0) {
       dispatch(createAlert("Location is longer 100 characters", "danger"));
     } else if (githubusername?.length > 50) {
       dispatch(
@@ -148,7 +158,14 @@ const ProfileForm = () => {
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 6 }}>
-            <TextField name="company" fullWidth label="Company" autoFocus />
+            <TextField
+              name="company"
+              fullWidth
+              label="Company"
+              autoFocus
+              onChange={onChange}
+              value={company}
+            />
           </Grid>
           <Grid size={{ xs: 6 }}>
             <Typography paddingY="1rem">
@@ -156,7 +173,13 @@ const ProfileForm = () => {
             </Typography>
           </Grid>
           <Grid size={{ xs: 6 }}>
-            <TextField name="website" fullWidth label="Website" />
+            <TextField
+              name="website"
+              fullWidth
+              label="Website"
+              onChange={onChange}
+              value={website}
+            />
           </Grid>
           <Grid size={{ xs: 6 }}>
             <Typography paddingY="1rem">
@@ -164,7 +187,13 @@ const ProfileForm = () => {
             </Typography>
           </Grid>
           <Grid size={{ xs: 6 }}>
-            <TextField name="location" fullWidth label="Location" />
+            <TextField
+              name="location"
+              fullWidth
+              label="Location"
+              onChange={onChange}
+              value={location}
+            />
           </Grid>
           <Grid size={{ xs: 6 }}>
             <Typography paddingY="1rem">
@@ -172,7 +201,14 @@ const ProfileForm = () => {
             </Typography>
           </Grid>
           <Grid size={{ xs: 6 }}>
-            <TextField name="skills" required fullWidth label="Skills" />
+            <TextField
+              name="skills"
+              required
+              fullWidth
+              label="Skills"
+              onChange={onChange}
+              value={skills}
+            />
           </Grid>
           <Grid size={{ xs: 6 }}>
             <Typography>
@@ -180,7 +216,13 @@ const ProfileForm = () => {
             </Typography>
           </Grid>
           <Grid size={{ xs: 6 }}>
-            <TextField name="githubUser" fullWidth label="Github Username" />
+            <TextField
+              name="githubUser"
+              fullWidth
+              label="Github Username"
+              onChange={onChange}
+              value={githubusername}
+            />
           </Grid>
           <Grid size={{ xs: 6 }}>
             <Typography>
@@ -197,6 +239,7 @@ const ProfileForm = () => {
               required
               placeholder="Select Profesional status"
               defaultValue={""}
+              value={status}
             >
               <MenuItem value="">None</MenuItem>
               <MenuItem value="Developer">Developer</MenuItem>
@@ -225,6 +268,8 @@ const ProfileForm = () => {
               multiline
               rows={4}
               fullWidth
+              onChange={onChange}
+              value={bio}
               label="A short bio of yourself"
             />
           </Grid>
@@ -239,23 +284,53 @@ const ProfileForm = () => {
           {displaySocialInputs ? (
             <>
               <Grid size={{ xs: 6 }}>
-                <TextField fullWidth name="twitter" label="Twitter URL" />
+                <TextField
+                  fullWidth
+                  name="twitter"
+                  label="Twitter URL"
+                  onChange={onChange}
+                  value={twitter}
+                />
               </Grid>
               <Grid size={{ xs: 6 }}></Grid>
               <Grid size={{ xs: 6 }}>
-                <TextField fullWidth name="facebook" label="FaceBook URL" />
+                <TextField
+                  fullWidth
+                  name="facebook"
+                  label="FaceBook URL"
+                  onChange={onChange}
+                  value={facebook}
+                />
               </Grid>
               <Grid size={{ xs: 6 }}></Grid>
               <Grid size={{ xs: 6 }}>
-                <TextField fullWidth name="youtube" label="YouTube URL" />
+                <TextField
+                  fullWidth
+                  name="youtube"
+                  label="YouTube URL"
+                  onChange={onChange}
+                  value={youtube}
+                />
               </Grid>
               <Grid size={{ xs: 6 }}></Grid>
               <Grid size={{ xs: 6 }}>
-                <TextField fullWidth name="linkedin" label="Linkedin URL" />
+                <TextField
+                  fullWidth
+                  name="linkedin"
+                  label="Linkedin URL"
+                  onChange={onChange}
+                  value={linkedin}
+                />
               </Grid>
               <Grid size={{ xs: 6 }}></Grid>
               <Grid size={{ xs: 6 }}>
-                <TextField fullWidth name="instagram" label="Instagram URL" />
+                <TextField
+                  fullWidth
+                  name="instagram"
+                  label="Instagram URL"
+                  onChange={onChange}
+                  value={instagram}
+                />
               </Grid>
             </>
           ) : null}

@@ -179,7 +179,6 @@ export const addComment =
 
       dispatch(createAlert("Comment Added", "success"));
     } catch (err: unknown) {
-      console.log(err);
       if (err instanceof AxiosError) {
         if (
           err !== undefined &&
