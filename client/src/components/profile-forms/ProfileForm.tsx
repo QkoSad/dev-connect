@@ -93,7 +93,7 @@ const ProfileForm = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const editing = profile ? true : false;
     e.preventDefault();
-    const form = new FormData();
+    const form = new FormData(e.currentTarget);
     const status = form.get("status") as string;
     if (facebook?.length > 100) {
       dispatch(createAlert("Facebook link is longer 100 characters", "danger"));
@@ -113,7 +113,7 @@ const ProfileForm = () => {
       dispatch(createAlert("Skills is required", "danger"));
     } else if (status?.length === 0) {
       dispatch(createAlert("Status is required", "danger"));
-    } else if (location?.length === 0) {
+    } else if (location?.length > 100) {
       dispatch(createAlert("Location is longer 100 characters", "danger"));
     } else if (githubusername?.length > 50) {
       dispatch(

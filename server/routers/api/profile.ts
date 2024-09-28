@@ -47,6 +47,7 @@ router.post(
   auth,
   check("status", "Status is required").notEmpty(),
   check("skills", "Skills is required").notEmpty(),
+  check("website", "Not a valid website").isURL(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
