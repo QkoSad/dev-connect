@@ -59,7 +59,6 @@ export default function SignUp() {
                 name="name"
                 required
                 fullWidth
-                id="name"
                 label="Name"
                 autoFocus
               />
@@ -68,7 +67,6 @@ export default function SignUp() {
               <TextField
                 required
                 fullWidth
-                id="email"
                 label="Email Address"
                 name="email"
               />
@@ -80,7 +78,6 @@ export default function SignUp() {
                 name="password"
                 label="Password"
                 type="password"
-                id="password"
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
@@ -90,7 +87,6 @@ export default function SignUp() {
                 name="password2"
                 label="Repeat Password"
                 type="password"
-                id="password2"
               />
             </Grid>
           </Grid>

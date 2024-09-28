@@ -19,10 +19,10 @@ const initialState = {
   company: "",
   website: "",
   location: "",
-  status: "",
   skills: "",
   githubusername: "",
   bio: "",
+  status: "",
   twitter: "",
   facebook: "",
   linkedin: "",
@@ -82,16 +82,19 @@ const ProfileForm = () => {
     youtube,
     linkedin,
     instagram,
-    status,
   } = formData;
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  ) => {
+    return setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const editing = profile ? true : false;
     e.preventDefault();
+    const form = new FormData();
+    const status = form.get("status") as string;
     if (facebook?.length > 100) {
       dispatch(createAlert("Facebook link is longer 100 characters", "danger"));
     } else if (linkedin?.length > 100) {
@@ -108,9 +111,9 @@ const ProfileForm = () => {
       dispatch(createAlert("Skills is longer 100 characters", "danger"));
     } else if (skills.length === 0) {
       dispatch(createAlert("Skills is required", "danger"));
-    } else if (skills.length > 100 || skills.length === 0) {
-      dispatch(createAlert("Status is required", "danger"));
     } else if (status?.length === 0) {
+      dispatch(createAlert("Status is required", "danger"));
+    } else if (location?.length === 0) {
       dispatch(createAlert("Location is longer 100 characters", "danger"));
     } else if (githubusername?.length > 50) {
       dispatch(
@@ -217,7 +220,7 @@ const ProfileForm = () => {
           </Grid>
           <Grid size={{ xs: 6 }}>
             <TextField
-              name="githubUser"
+              name="githubusername"
               fullWidth
               label="Github Username"
               onChange={onChange}
@@ -239,7 +242,6 @@ const ProfileForm = () => {
               required
               placeholder="Select Profesional status"
               defaultValue={""}
-              value={status}
             >
               <MenuItem value="">None</MenuItem>
               <MenuItem value="Developer">Developer</MenuItem>
