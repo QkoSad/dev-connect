@@ -6,7 +6,6 @@ import Experience from "./Experience";
 import Education from "./Education";
 import { getCurrentProfile, deleteAccount } from "../../actions/profile";
 import { Box, Button, Typography } from "@mui/material";
-import { compose } from "redux";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();

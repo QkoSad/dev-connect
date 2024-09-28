@@ -12,7 +12,6 @@ import {
   TableCell,
   TableHead,
   Typography,
-  TableContainer,
 } from "@mui/material";
 
 const Education = ({ education }: { education: EducationType[] }) => {

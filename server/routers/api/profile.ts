@@ -297,8 +297,6 @@ router.delete("/education/:edu_id", auth, async (req, res) => {
 // @desc     Get user repos from Github
 // @access   Public
 router.get("/github/:username", async (req, res) => {
-  console.log(config.get("githubToken"));
-  console.log(req.params.username);
   try {
     const uri = encodeURI(
       `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`,

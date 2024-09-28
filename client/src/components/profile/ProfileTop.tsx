@@ -18,7 +18,9 @@ const ProfileTop = ({
   return (
     <>
       <img src={avatar} alt="" />
-      <Typography variant="h2">{name}</Typography>
+      <Typography variant="h2" color="info">
+        {name}
+      </Typography>
       <Typography sx={{ textWrap: "wrap" }}>
         {status} {company ? <span> at {company}</span> : null}
       </Typography>

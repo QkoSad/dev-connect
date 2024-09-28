@@ -74,7 +74,9 @@ const Profile = () => {
               <ProfileAbout profile={profile} />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <Typography variant="h2">Experience</Typography>
+              <Typography variant="h2" color="info">
+                Experience
+              </Typography>
               {profile.experience.length > 0 ? (
                 <>
                   {profile.experience.map((experience: ExperienceType) => (
@@ -88,8 +90,10 @@ const Profile = () => {
                 <Typography variant="h4">No experience credentials</Typography>
               )}
             </Grid>
-            <Grid size={6}>
-              <Typography variant="h2">Education</Typography>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography variant="h2" color="info">
+                Education
+              </Typography>
               {profile.education.length > 0 ? (
                 <>
                   {profile.education.map((education: EducationType) => (
