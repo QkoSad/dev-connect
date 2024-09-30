@@ -1,5 +1,5 @@
 FROM node:20
-  
+
 WORKDIR /usr/src/app
 
 COPY --chown=node:node . .
@@ -10,4 +10,4 @@ ENV DEBUG=express:*
 
 USER node
 
-CMD npm start server
+CMD npm run server

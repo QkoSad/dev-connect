@@ -1,19 +1,21 @@
 services:
   app:
-    image: devcon-frontend-dev
+    image: devcon-frontend
     build:
       context: ./client
-      dockerfile: ./dev.Dockerfile 
+      dockerfile: ./Dockerfile 
     ports:
-      - 3000:3000
+      - 8080:80
+    environment:
+      VITE_BACKEND_URL: http://server:5000 
     volumes:
       - ./client:/usr/src/app 
 
   server:
-    image: devcon-backend-dev
+    image: devcon-backend
     build:
       context: ./server
-      dockerfile: ./dev.Dockerfile
+      dockerfile: ./Dockerfile
     ports:                
       - 5000:5000
     volumes:

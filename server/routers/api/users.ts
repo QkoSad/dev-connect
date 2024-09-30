@@ -8,7 +8,6 @@ import User from "../../models/User";
 
 import normalizeUrl from "normalize-url";
 
-
 const router = express.Router();
 
 // @route    POST api/users
@@ -20,7 +19,7 @@ router.post(
   check("email", "Please include a valid email").isEmail(),
   check(
     "password",
-    "Please enter a password with 6 or more characters"
+    "Please enter a password with 6 or more characters",
   ).isLength({ min: 6 }),
   async (req, res) => {
     const errors = validationResult(req);
@@ -45,7 +44,7 @@ router.post(
           r: "pg",
           d: "mm",
         }),
-        { forceHttps: true }
+        { forceHttps: true },
       );
 
       user = new User({
@@ -67,24 +66,21 @@ router.post(
         },
       };
 
-      const jwtSecret = config.get('jwtSecret')
-      if (typeof jwtSecret === 'string') jwt.sign(
-        payload,
-        jwtSecret,
-        { expiresIn: "5 days" },
-        (err, token) => {
+      const jwtSecret = process.env.JWT_SECRET
+        ? process.env.JWT_SECRET
+        : config.get("jwtSecret");
+
+      if (typeof jwtSecret === "string")
+        jwt.sign(payload, jwtSecret, { expiresIn: "5 days" }, (err, token) => {
           if (err) throw err;
           res.json({ token });
-        }
-      );
+        });
     } catch (err: unknown) {
-      if (typeof err === 'string')
-        console.error(err)
-      else if (err instanceof Error)
-        console.error(err.message);
+      if (typeof err === "string") console.error(err);
+      else if (err instanceof Error) console.error(err.message);
       res.status(500).send("Server error");
     }
-  }
+  },
 );
 
-module.exports = router
+module.exports = router;

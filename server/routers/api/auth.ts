@@ -1,14 +1,14 @@
-import express from 'express'
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken';
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-import auth from '../../middleware/auth'
-import config from 'config'
+import auth from "../../middleware/auth";
+import config from "config";
 import { check, validationResult } from "express-validator";
 
-import User from '../../models/User'
-import type { Request, Response } from 'express';
-import { isUserId } from '../../utils';
+import User from "../../models/User";
+import type { Request, Response } from "express";
+import { isUserId } from "../../utils";
 
 const router = express.Router();
 // @route    GET api/auth
@@ -16,19 +16,16 @@ const router = express.Router();
 // @access   Private
 router.get("/", auth, async (req: any, res) => {
   try {
-    let user: unknown = null
+    let user: unknown = null;
     if (isUserId(req)) {
       user = await User.findById(req.user.id).select("-password");
       res.json(user);
-    }
-    else {
-      throw new Error('missing id in request')
+    } else {
+      throw new Error("missing id in request");
     }
   } catch (err: unknown) {
-    if (typeof err === 'string')
-      console.error(err)
-    else if (err instanceof Error)
-      console.error(err.message);
+    if (typeof err === "string") console.error(err);
+    else if (err instanceof Error) console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
@@ -72,25 +69,23 @@ router.post(
           id: user.id,
         },
       };
-      const jwtSecret = config.get('jwtSecret')
-      if (typeof jwtSecret === 'string') jwt.sign(
-        payload,
-        jwtSecret,
-        { expiresIn: 360000 },
-        (err, token) => {
+
+      const jwtSecret = process.env.JWT_SECRET
+        ? process.env.JWT_SECRET
+        : config.get("jwtSecret");
+
+      if (typeof jwtSecret === "string")
+        jwt.sign(payload, jwtSecret, { expiresIn: 360000 }, (err, token) => {
           if (err) throw err;
           res.json({ token });
-        }
-      );
-      else throw new Error('Error signing the jwt token')
+        });
+      else throw new Error("Error signing the jwt token");
     } catch (err: unknown) {
-      if (typeof err === 'string')
-        console.error(err)
-      else if (err instanceof Error)
-        console.error(err.message);
+      if (typeof err === "string") console.error(err);
+      else if (err instanceof Error) console.error(err.message);
       res.status(500).send("Server error");
     }
-  }
+  },
 );
 
-module.exports = router
+module.exports = router;
