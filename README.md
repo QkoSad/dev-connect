@@ -14,5 +14,6 @@ In the client directory:
 `npm run dev`
 In the server directory:
 ```MONGO_URL=mongodb://the_username:the_password@localhost:3456/the_database JWT_SECRET=mysecrettoken npm run server```
+
 The app will be available at http://localhost:5173
 
