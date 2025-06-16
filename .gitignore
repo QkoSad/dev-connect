@@ -2,3 +2,5 @@ node_modules
 start_in_tmux.sh
 default.json
 production.json
+bin
+obj

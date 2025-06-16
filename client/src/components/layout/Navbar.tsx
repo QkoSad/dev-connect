@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { logOut } from "../../reducers/auth";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
@@ -69,7 +68,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/*Icon for big dislay*/}
+          {/*Icon for big display*/}
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           {/*LOGO link for bi display*/}
           <Typography

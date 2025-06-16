@@ -7,7 +7,7 @@ interface postState {
   post: Post | null;
   loading: boolean;
   error: {};
-  //Todo erros
+  //Todo errors
 }
 const initialState: postState = {
   posts: [],

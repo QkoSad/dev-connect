@@ -55,7 +55,7 @@ const ProfileForm = () => {
     // then build our profileData
     if (!loading && profile) {
       const profileData: any = { ...initialState };
-      // cant figure out how to type key to be keyof profile  so they are any now
+      // can't figure out how to type key to be keyof profile  so they are any now
       for (const key in profile) {
         if (key in profileData) profileData[key] = profile[key];
       }
@@ -215,7 +215,7 @@ const ProfileForm = () => {
           </Grid>
           <Grid size={{ xs: 6 }}>
             <Typography>
-              Please use comma separeted values (eg. HTML, CSS, JavaScript, PHP)
+              Please use comma separated values (eg. HTML, CSS, JavaScript, PHP)
             </Typography>
           </Grid>
           <Grid size={{ xs: 6 }}>
@@ -240,7 +240,7 @@ const ProfileForm = () => {
               labelId="status"
               name="status"
               required
-              placeholder="Select Profesional status"
+              placeholder="Select Professional status"
               defaultValue={""}
             >
               <MenuItem value="">None</MenuItem>
@@ -258,7 +258,7 @@ const ProfileForm = () => {
           </Grid>
           <Grid size={{ xs: 6 }}>
             <Typography paddingTop="2.3rem">
-              Select Profesional Status
+              Select Professional Status
             </Typography>
           </Grid>
           <Grid size={{ xs: 12 }}>
