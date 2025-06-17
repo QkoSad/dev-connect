@@ -24,7 +24,7 @@ services:
       MONGO_URL: "mongodb://the_username:the_password@mongo:27017/the_database"
 
   mongo:
-    image: mongo
+    image: mongo:4.4
     ports:
      - 3456:27017
     environment:
